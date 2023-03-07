@@ -2,6 +2,8 @@ package com.ivana.tema8.controllers;
 
 import java.util.List;
 
+
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ivana.tema8.dto.KorisnikDTO;
-import com.ivana.tema8.entities.Korisnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Roditelj;
 import com.ivana.tema8.entities.RoleEntity;
@@ -33,6 +34,7 @@ import com.ivana.tema8.repositories.RoditeljRepository;
 import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
+
 
 @RestController
 @RequestMapping(path = "api/v1/ucenik")
@@ -51,46 +53,9 @@ public class UcenikController {
 	@Autowired
 	private PredmetRepository predmetRepository;
 	
+	
+	
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
-	/*
-	 * 
-	 *
-	// STAVI U SERVICE, CHAT JE REKAO TAKO, POGLEDAJ I SNIMAK OD PROFE, SKINULA SI 
-	@RequestMapping(method = RequestMethod.POST, path = "api/v1/ucenik/register")
-	
-	public ResponseEntity<?> registerUcenik(@RequestBody KorisnikDTO registerDTO) {
-	    if (registerDTO.getEmail() == null || registerDTO.getEmail().equals("")) {
-	        return new ResponseEntity<>("Please provide an email", HttpStatus.BAD_REQUEST);
-	    }
-	    if (registerDTO.getLozinka() == null || registerDTO.getLozinka().equals("")) {
-	        return new ResponseEntity<>("Please provide a password", HttpStatus.BAD_REQUEST);
-	    }
-	    if (registerDTO.getPotvrdjenaLozinka() == null || registerDTO.getPotvrdjenaLozinka().equals("")) {
-	        return new ResponseEntity<>("Please provide a confirmed password", HttpStatus.BAD_REQUEST);
-	    }
-
-	    if (!registerDTO.getLozinka().equals(registerDTO.getPotvrdjenaLozinka())) {
-	        return new ResponseEntity<>("Password do not match", HttpStatus.BAD_REQUEST);
-	    }
-	    if (registerDTO.getKorisnickoIme() == null || registerDTO.getKorisnickoIme().equals("")) {
-	        return new ResponseEntity<>("Please provide an username", HttpStatus.BAD_REQUEST);
-	    }
-	    if (registerDTO.getIme() == null || registerDTO.getIme().equals("")) {
-	        return new ResponseEntity<>("Please provide a name", HttpStatus.BAD_REQUEST);
-	    }
-	    if (registerDTO.getPrezime() == null || registerDTO.getPrezime().equals("")) {
-	        return new ResponseEntity<>("Please provide a lastname", HttpStatus.BAD_REQUEST);
-	    }
-	    Ucenik user = new Ucenik();
-	    user.setEmail(registerDTO.getEmail());
-	    user.setLozinka(registerDTO.getLozinka());
-	    ucenikRepository.save(user);
-
-	    return new ResponseEntity<>(user, HttpStatus.CREATED);
-	}
-	*/
-
-	
 	
 	//ADMIN RADI OVO
 	@RequestMapping(method = RequestMethod.GET)
@@ -111,6 +76,7 @@ public class UcenikController {
 		newUcenik.setIme(newUser.getIme());
 		newUcenik.setPrezime(newUser.getPrezime());
 		newUcenik.setEmail(newUser.getEmail());
+		newUcenik.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
 		
 		logger.info("Novi ucenik uspešno dodat.");
 		newUcenik.setRole(roleEntity);
@@ -158,6 +124,7 @@ public class UcenikController {
 		ucenik.setIme(updatedUcenik.getIme());
 		ucenik.setPrezime(updatedUcenik.getPrezime());
 		ucenik.setEmail(updatedUcenik.getEmail());
+		ucenik.setPotvrdjenaLozinka(updatedUcenik.getPotvrdjenaLozinka());
 		
 		if (result.hasErrors()) {
 			String errorMessage = createErrorMessage(result);

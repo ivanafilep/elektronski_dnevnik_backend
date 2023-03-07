@@ -86,6 +86,10 @@ public class OcenaController {
 	    if (!nastavnikPredmet.isPresent() || !ucenik.isPresent() || !polugodiste.isPresent()) {
 	        return new ResponseEntity<>("NastavnikPredmet, ucenik ili polugodište nisu pronađeni", HttpStatus.NOT_FOUND);
 	    }
+	    
+	    if (vrednostOcene > 5 || vrednostOcene < 1) {
+	    	return new ResponseEntity<>("Ocena mora biti izmedju 1 i 5.", HttpStatus.NOT_FOUND);
+	    }
 
 	    Ocena ocena = new Ocena();
 	    ocena.setVrednostOcene(vrednostOcene);
@@ -138,7 +142,7 @@ public class OcenaController {
 			} else {
 				logger.info("DELETE zahtev za brisanje ocene sa ID {}", id);
 				ocenaRepository.delete(ocena.get());
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>("Ocena je obrisana", HttpStatus.OK);
 			}
 			
 	}

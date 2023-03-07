@@ -26,8 +26,6 @@ public class Ocena {
 	private Integer id;
 	@Column
 	@NotNull(message = "Ocena mora biti navedena.")
-	@Min(value = 1, message = "Vrednost ocene ne sme biti manja od 1")
-    @Max(value = 5, message = "Vrednost ocene ne sme biti veća od 5")
 	private Integer vrednostOcene;
 	
 	
