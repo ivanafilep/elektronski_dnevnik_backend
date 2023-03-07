@@ -60,6 +60,7 @@ public class RoditeljController {
 		newRoditelj.setIme(newUser.getIme());
 		newRoditelj.setPrezime(newUser.getPrezime());
 		newRoditelj.setEmail(newUser.getEmail());
+		newRoditelj.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
 		
 		logger.info("Dodavanje novog roditelja.");
 		newRoditelj.setRole(roleEntity);
@@ -106,6 +107,7 @@ public class RoditeljController {
 			roditelj.setIme(updatedRoditelj.getIme());
 			roditelj.setPrezime(updatedRoditelj.getPrezime());
 			roditelj.setEmail(updatedRoditelj.getEmail());
+			roditelj.setPotvrdjenaLozinka(updatedRoditelj.getPotvrdjenaLozinka());
 			
 			if (result.hasErrors()) {
 				String errorMessage = createErrorMessage(result);

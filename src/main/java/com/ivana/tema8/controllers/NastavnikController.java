@@ -71,6 +71,7 @@ public class NastavnikController {
 		newNastavnik.setIme(newUser.getIme());
 		newNastavnik.setPrezime(newUser.getPrezime());
 		newNastavnik.setEmail(newUser.getEmail());
+		newNastavnik.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
 		
 		logger.info("Dodavanje novog nastavnika.");
 		newNastavnik.setRole(roleEntity);
@@ -117,6 +118,7 @@ public class NastavnikController {
 			nastavnik.setIme(updatedNastavnik.getIme());
 			nastavnik.setPrezime(updatedNastavnik.getPrezime());
 			nastavnik.setEmail(updatedNastavnik.getEmail());
+			nastavnik.setPotvrdjenaLozinka(updatedNastavnik.getPotvrdjenaLozinka());
 			
 			if (result.hasErrors()) {
 				String errorMessage = createErrorMessage(result);

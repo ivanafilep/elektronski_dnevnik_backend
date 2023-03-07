@@ -55,6 +55,7 @@ public class AdminController {
 		newAdmin.setIme(newUser.getIme());
 		newAdmin.setPrezime(newUser.getPrezime());
 		newAdmin.setEmail(newUser.getEmail());
+		newAdmin.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
 		
 		logger.info("Dodavanje novog admina.");
 		newAdmin.setRole(roleEntity);
@@ -101,6 +102,7 @@ public class AdminController {
 			admin.setIme(updatedAdmin.getIme());
 			admin.setPrezime(updatedAdmin.getPrezime());
 			admin.setEmail(updatedAdmin.getEmail());
+			admin.setPotvrdjenaLozinka(updatedAdmin.getPotvrdjenaLozinka());
 			
 			if (result.hasErrors()) {
 				String errorMessage = createErrorMessage(result);

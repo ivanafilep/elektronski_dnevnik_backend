@@ -11,9 +11,6 @@ public class OcenaDTO {
 
 	
 	@NotNull(message = "Ocena mora biti navedena.")
-	
-	@Min(value = 1, message = "Vrednost ocene ne sme biti manja od 1")
-    @Max(value = 5, message = "Vrednost ocene ne sme biti veća od 5")
 	private Integer vrednostOcene;
 	
 	
@@ -21,13 +18,10 @@ public class OcenaDTO {
 		super();
 	}
 
-
-	public OcenaDTO(
-			@NotNull(message = "Ocena mora biti navedena.") @Min(value = 1, message = "Vrednost ocene ne sme biti manja od 1") @Max(value = 5, message = "Vrednost ocene ne sme biti veća od 5") Integer vrednostOcene) {
+	public OcenaDTO(@NotNull(message = "Ocena mora biti navedena.") Integer vrednostOcene) {
 		super();
 		this.vrednostOcene = vrednostOcene;
 	}
-
 
 	public Integer getVrednostOcene() {
 		return vrednostOcene;
