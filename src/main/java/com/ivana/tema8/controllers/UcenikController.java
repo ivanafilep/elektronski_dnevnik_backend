@@ -1,14 +1,9 @@
 package com.ivana.tema8.controllers;
 
 import java.util.List;
-
-
-
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,12 +67,16 @@ public class UcenikController {
 		RoleEntity roleEntity = roleRepository.findById(2).orElse(null);
 
 		newUcenik.setKorisnickoIme(newUser.getKorisnickoIme());
-		newUcenik.setLozinka(newUser.getLozinka());
 		newUcenik.setIme(newUser.getIme());
 		newUcenik.setPrezime(newUser.getPrezime());
 		newUcenik.setEmail(newUser.getEmail());
-		newUcenik.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
 		
+		if (newUser.getLozinka().equals(newUser.getPotvrdjenaLozinka())) {
+			newUcenik.setLozinka(newUser.getLozinka());
+		} else {
+			return new ResponseEntity<>("Lozinke se ne poklapaju! Molimo unesite opet.", HttpStatus.BAD_REQUEST);
+		}
+
 		logger.info("Novi ucenik uspešno dodat.");
 		newUcenik.setRole(roleEntity);
 		
@@ -124,7 +123,7 @@ public class UcenikController {
 		ucenik.setIme(updatedUcenik.getIme());
 		ucenik.setPrezime(updatedUcenik.getPrezime());
 		ucenik.setEmail(updatedUcenik.getEmail());
-		ucenik.setPotvrdjenaLozinka(updatedUcenik.getPotvrdjenaLozinka());
+		
 		
 		if (result.hasErrors()) {
 			String errorMessage = createErrorMessage(result);
