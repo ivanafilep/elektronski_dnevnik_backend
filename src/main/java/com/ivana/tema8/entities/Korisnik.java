@@ -1,6 +1,7 @@
 package com.ivana.tema8.entities;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,9 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ivana.tema8.security.Views;
+
 
 @Entity
 @Table(name = "korisnik")
@@ -25,30 +29,36 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Korisnik {
 
-	
+	@JsonView(Views.Public.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
 	
 	@Column
 	@NotNull(message = "Korisnicko ime mora biti navedeno.")
 	@Size(min = 2, max = 15, message = "Korisnicko ime mora biti izmedju {min} and {max} karaktera.")
 	private String korisnickoIme;
 	
+	
+	//@JsonIgnore
 	@Column
 	@NotNull(message = "Lozinka mora biti navedena.")
-	@Size(min = 2, max = 15, message = "Lozinka mora biti izmedju {min} and {max} karaktera.")
+	@Size(min = 2, message = "Lozinka mora biti minimum {min} karaktera.")
 	private String lozinka;
+	
 	
 	@Column
 	@NotNull(message = "Ime mora biti navedeno.")
 	@Size(min = 2, max = 30, message = "Ime mora biti izmedju {min} and {max} karaktera.")
 	private String ime;
 	
+	
 	@Column
 	@NotNull(message = "Prezime mora biti navedeno.")
 	@Size(min = 2, max = 30, message = "Prezime mora biti izmedju {min} and {max} karaktera.")
 	private String prezime;
+	
 	
 	@Column
 	@NotNull(message = "Email mora biti naveden.")

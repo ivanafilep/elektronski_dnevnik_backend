@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Roditelj;
@@ -28,6 +31,7 @@ import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.repositories.RoditeljRepository;
 import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
+import com.ivana.tema8.security.Views;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 
 
@@ -71,8 +75,9 @@ public class UcenikController {
 		newUcenik.setPrezime(newUser.getPrezime());
 		newUcenik.setEmail(newUser.getEmail());
 		
-		if (newUser.getLozinka().equals(newUser.getPotvrdjenaLozinka())) {
+		if (newUser.getPotvrdjenaLozinka().equals(newUser.getLozinka())) {
 			newUcenik.setLozinka(newUser.getLozinka());
+			
 		} else {
 			return new ResponseEntity<>("Lozinke se ne poklapaju! Molimo unesite opet.", HttpStatus.BAD_REQUEST);
 		}

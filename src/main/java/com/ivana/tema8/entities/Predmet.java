@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
@@ -37,7 +38,7 @@ public class Predmet {
 	private Integer nedeljniFondCasova;
 	
 
-	
+	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy = "predmet", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<NastavnikPredmet> nastavnikPredmet = new ArrayList<NastavnikPredmet>();
