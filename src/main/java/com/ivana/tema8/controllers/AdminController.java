@@ -51,11 +51,15 @@ public class AdminController {
 		RoleEntity roleEntity = roleRepository.findById(1).orElse(null);
 
 		newAdmin.setKorisnickoIme(newUser.getKorisnickoIme());
-		newAdmin.setLozinka(newUser.getLozinka());
 		newAdmin.setIme(newUser.getIme());
 		newAdmin.setPrezime(newUser.getPrezime());
 		newAdmin.setEmail(newUser.getEmail());
-		newAdmin.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
+		
+		if (newUser.getLozinka().equals(newUser.getPotvrdjenaLozinka())) {
+			newAdmin.setLozinka(newUser.getLozinka());
+		} else {
+			return new ResponseEntity<>("Lozinke se ne poklapaju! Molimo unesite opet.", HttpStatus.BAD_REQUEST);
+		}
 		
 		logger.info("Dodavanje novog admina.");
 		newAdmin.setRole(roleEntity);
@@ -102,7 +106,7 @@ public class AdminController {
 			admin.setIme(updatedAdmin.getIme());
 			admin.setPrezime(updatedAdmin.getPrezime());
 			admin.setEmail(updatedAdmin.getEmail());
-			admin.setPotvrdjenaLozinka(updatedAdmin.getPotvrdjenaLozinka());
+		
 			
 			if (result.hasErrors()) {
 				String errorMessage = createErrorMessage(result);

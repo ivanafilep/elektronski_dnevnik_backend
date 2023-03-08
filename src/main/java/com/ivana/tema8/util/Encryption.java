@@ -2,6 +2,7 @@
 //
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //
+
 //public class Encryption {
 //	public static String getEncodedPassword(String password) {
 //		BCryptPasswordEncoder bce = new BCryptPasswordEncoder();
@@ -16,4 +17,7 @@
 //	
 //
 //
+//  public static void main(String[] args) {
+// System.out.println(getPassEncoded("pass"));
+//}
 //}

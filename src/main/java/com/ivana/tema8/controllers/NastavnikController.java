@@ -67,11 +67,17 @@ public class NastavnikController {
 		RoleEntity roleEntity = roleRepository.findById(3).orElse(null);
 
 		newNastavnik.setKorisnickoIme(newUser.getKorisnickoIme());
-		newNastavnik.setLozinka(newUser.getLozinka());
 		newNastavnik.setIme(newUser.getIme());
 		newNastavnik.setPrezime(newUser.getPrezime());
 		newNastavnik.setEmail(newUser.getEmail());
-		newNastavnik.setPotvrdjenaLozinka(newUser.getPotvrdjenaLozinka());
+		
+		if (newUser.getLozinka().equals(newUser.getPotvrdjenaLozinka())) {
+			newNastavnik.setLozinka(newUser.getLozinka());
+		} else {
+			return new ResponseEntity<>("Lozinke se ne poklapaju! Molimo unesite opet.", HttpStatus.BAD_REQUEST);
+		}
+
+		
 		
 		logger.info("Dodavanje novog nastavnika.");
 		newNastavnik.setRole(roleEntity);
@@ -118,7 +124,7 @@ public class NastavnikController {
 			nastavnik.setIme(updatedNastavnik.getIme());
 			nastavnik.setPrezime(updatedNastavnik.getPrezime());
 			nastavnik.setEmail(updatedNastavnik.getEmail());
-			nastavnik.setPotvrdjenaLozinka(updatedNastavnik.getPotvrdjenaLozinka());
+			
 			
 			if (result.hasErrors()) {
 				String errorMessage = createErrorMessage(result);

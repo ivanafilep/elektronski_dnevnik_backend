@@ -45,8 +45,8 @@ public class Ucenik extends Korisnik {
 	}
 
 
-	public Ucenik(String korisnickoIme, String lozinka, String ime, String prezime, String email,  String potvrdjenaLozinka, RoleEntity role, Integer id, List<Ocena> ocene, Roditelj roditelj, Set<NastavnikPredmet> nastavnikPredmet) {
-		super(id, korisnickoIme, lozinka, ime, prezime, email, potvrdjenaLozinka, role);
+	public Ucenik(String korisnickoIme, String lozinka, String ime, String prezime, String email, RoleEntity role, Integer id, List<Ocena> ocene, Roditelj roditelj, Set<NastavnikPredmet> nastavnikPredmet) {
+		super(id, korisnickoIme, lozinka, ime, prezime, email, role);
 		this.ocene = ocene;
 		this.roditelj = roditelj;
 		this.nastavnikPredmet = nastavnikPredmet;

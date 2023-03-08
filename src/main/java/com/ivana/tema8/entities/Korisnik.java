@@ -56,10 +56,6 @@ public class Korisnik {
 	message="Email nije validan.")
 	private String email;
 	
-	@JsonIgnore // da li ovde ovo ili sta
-	@NotNull(message = "Potvrdjena lozinka mora biti navedena.")
-	@Size(min = 2, max = 15, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.")
-	private String potvrdjenaLozinka;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role")
@@ -70,7 +66,7 @@ public class Korisnik {
 		super();
 	}
 
-	public Korisnik(Integer id, String korisnickoIme, String lozinka, String ime, String prezime, String email, String potvrdjenaLozinka, RoleEntity role) {
+	public Korisnik(Integer id, String korisnickoIme, String lozinka, String ime, String prezime, String email, RoleEntity role) {
 		super();
 		
 		this.id = id;
@@ -79,7 +75,6 @@ public class Korisnik {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.email = email;
-		this.potvrdjenaLozinka = potvrdjenaLozinka;
 		this.role = role;
 		
 	}
@@ -124,15 +119,6 @@ public class Korisnik {
 		this.email = email;
 	}
 	
-	
-
-	public String getPotvrdjenaLozinka() {
-		return potvrdjenaLozinka;
-	}
-
-	public void setPotvrdjenaLozinka(String potvrdjenaLozinka) {
-		this.potvrdjenaLozinka = potvrdjenaLozinka;
-	}
 
 	public Integer getId() {
 		return id;
