@@ -4,23 +4,31 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ivana.tema8.security.Views;
+
 public class KorisnikDTO {
+	
 	
 	@NotNull(message = "Korisnicko ime mora biti navedeno.")
 	@Size(min = 2, max = 15, message = "Korisnicko ime mora biti izmedju {min} and {max} karaktera.")
 	private String korisnickoIme;
 	
+	
 	@NotNull(message = "Lozinka mora biti navedena.")
-	@Size(min = 2, max = 15, message = "Lozinka mora biti izmedju {min} and {max} karaktera.")
+	@Size(min = 2, message = "Lozinka mora biti najmanje {min} karaktera.")
 	private String lozinka;
+	
 	
 	@NotNull(message = "Ime mora biti navedeno.")
 	@Size(min = 2, max = 30, message = "Ime mora biti izmedju {min} and {max} karaktera.")
 	private String ime;
 	
+	
 	@NotNull(message = "Prezime mora biti navedeno.")
 	@Size(min = 2, max = 30, message = "Prezime mora biti izmedju {min} and {max} karaktera.")
 	private String prezime;
+	
 	
 	@NotNull(message = "Email mora biti naveden.")
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
@@ -29,7 +37,7 @@ public class KorisnikDTO {
 	
 	
 	@NotNull(message = "Potvrdjena lozinka mora biti navedena.")
-	@Size(min = 2, max = 15, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.")
+	@Size(min = 2, max = 50, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.")
 	private String potvrdjenaLozinka;
 	
 	
@@ -39,11 +47,11 @@ public class KorisnikDTO {
 
 	public KorisnikDTO(
 			@NotNull(message = "Korisnicko ime mora biti navedeno.") @Size(min = 2, max = 15, message = "Korisnicko ime mora biti izmedju {min} and {max} karaktera.") String korisnickoIme,
-			@NotNull(message = "Lozinka mora biti navedena.") @Size(min = 2, max = 15, message = "Lozinka mora biti izmedju {min} and {max} karaktera.") String lozinka,
+			@NotNull(message = "Lozinka mora biti navedena.") @Size(min = 2, message = "Lozinka mora biti minimum {min} karaktera.") String lozinka,
 			@NotNull(message = "Ime mora biti navedeno.") @Size(min = 2, max = 30, message = "Ime mora biti izmedju {min} and {max} karaktera.") String ime,
 			@NotNull(message = "Prezime mora biti navedeno.") @Size(min = 2, max = 30, message = "Prezime mora biti izmedju {min} and {max} karaktera.") String prezime,
 			@NotNull(message = "Email mora biti naveden.") @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Email is not valid.") String email,
-			@NotNull(message = "Potvrdjena lozinka mora biti navedena.") @Size(min = 2, max = 15, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.") String potvrdjenaLozinka) {
+			@NotNull(message = "Potvrdjena lozinka mora biti navedena.") @Size(min = 2, max = 50, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.") String potvrdjenaLozinka) {
 		super();
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
@@ -52,6 +60,7 @@ public class KorisnikDTO {
 		this.email = email;
 		this.potvrdjenaLozinka = potvrdjenaLozinka;
 	}
+
 
 	public String getKorisnickoIme() {
 		return korisnickoIme;

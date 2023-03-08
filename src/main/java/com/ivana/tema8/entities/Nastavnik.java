@@ -11,13 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
 public class Nastavnik extends Korisnik {
 	
 
-	
+	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy = "nastavnik", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<NastavnikPredmet> nastavnikPredmet = new ArrayList<NastavnikPredmet>();

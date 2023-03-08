@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.ivana.tema8.security.Views;
 
 
 @Entity
@@ -22,13 +24,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class RoleEntity {
 	
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "role_id")
 	private Integer id;
 	
+	
 	@Column(name = "role_ime")
 	private String ime;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)

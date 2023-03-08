@@ -16,8 +16,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
@@ -29,15 +31,18 @@ public class NastavnikPredmet {
 	@Column
 	private Integer razred;
 	
+	@JsonBackReference
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "predmet")
 	private Predmet predmet;
 	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "nastavnik")
 	private Nastavnik nastavnik;
 	
+	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy = "nastavnikPredmet", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<Ocena> ocene = new ArrayList<Ocena>();

@@ -1,5 +1,15 @@
-//package com.ivana.tema8.security;
-//
-//public class Views {
-//
-//}
+package com.ivana.tema8.security;
+
+public class Views {
+	
+public static class Public {
+		
+	}
+	public static class Private extends Public {
+		
+	}
+	public static class Admin extends Private {
+		
+	}
+
+}
