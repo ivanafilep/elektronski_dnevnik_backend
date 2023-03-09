@@ -152,15 +152,17 @@ public class OcenaController {
 			
 	}
 	
-	//pretraga ocena po predmetu
+	//pretraga ocena po predmetu I KADA NAPISEM NPR FIZIKA VRATI MI 200 OK PROVERI 
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet")
 	public ResponseEntity<Iterable<Ocena>> findOcenaByPredmet(@RequestParam String nazivPredmeta) {
+		
 	    Iterable<Ocena> ocene = ocenaService.findOcenaByPredmet(nazivPredmeta);
 	    logger.info("Ocene iz predmeta: {} su uspesno pronadjene", nazivPredmeta);
 	    return new ResponseEntity<>(ocene, HttpStatus.OK);
 	}
 	
-	//pretraga ocena po imenu ucenika
+	
+	//pretraga ocena po imenu ucenika I KADA NAPISEM NPR NECIJE IME KOJE NE POSTOJI VRATI MI 200 OK PROVERI 
 	@RequestMapping(method = RequestMethod.GET, path = "/ime")
 	public ResponseEntity<Iterable<Ocena>> findOcenaByIme(@RequestParam String ime) {
 	    Iterable<Ocena> ocene = ocenaService.findOcenaByIme(ime);
@@ -168,7 +170,7 @@ public class OcenaController {
 	    return new ResponseEntity<>(ocene, HttpStatus.OK);
 	}
 	
-	//pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena
+	//pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena ISTO KAO PRETHODNO
 	@RequestMapping(method = RequestMethod.GET, path = "/imePredmet")
 	public ResponseEntity<Iterable<Ocena>> findOcenaByImePredmet(@RequestParam String ime) {
 	    Iterable<Ocena> ocene = ocenaService.findOcenaByImePredmet(ime);
@@ -176,7 +178,7 @@ public class OcenaController {
 	    return new ResponseEntity<>(ocene, HttpStatus.OK);
 	}
 	
-
+	//TAKODJE KAO PRETHODNO SVE
 	@RequestMapping(method = RequestMethod.GET, path = "/imeIPredmet")
 	public ResponseEntity<Iterable<Ocena>> findOcenaByImeIPredmet(@RequestParam String ime, @RequestParam String nazivPredmeta) {
 	    Iterable<Ocena> ocene = ocenaService.findByPredmetIIme(ime, nazivPredmeta);
