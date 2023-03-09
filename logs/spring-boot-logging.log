@@ -3219,3 +3219,278 @@ java.util.NoSuchElementException: No value present
 2023-03-09 21:21:38.884  INFO 1736 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2023-03-09 21:21:39.072  INFO 1736 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Pokušaj izmene predmeta sa id-jem 52
 2023-03-09 21:21:39.206  INFO 1736 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Predmet sa id-jem 52 je uspešno izmenjen
+2023-03-09 21:58:09.478  INFO 8736 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 8736 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 21:58:09.489  INFO 8736 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 21:58:10.356  INFO 8736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 21:58:10.473  INFO 8736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 103 ms. Found 10 JPA repository interfaces.
+2023-03-09 21:58:11.235  INFO 8736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 21:58:11.248  INFO 8736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 21:58:11.248  INFO 8736 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 21:58:11.389  INFO 8736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 21:58:11.389  INFO 8736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1835 ms
+2023-03-09 21:58:12.075  INFO 8736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 21:58:12.526  INFO 8736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 21:58:14.066  INFO 8736 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 21:58:14.788  WARN 8736 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 21:58:15.270  INFO 8736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 21:58:15.282  INFO 8736 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.395 seconds (JVM running for 7.563)
+2023-03-09 21:59:00.787  INFO 8736 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 21:59:00.788  INFO 8736 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 21:59:00.790  INFO 8736 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-03-09 21:59:28.538  INFO 8736 --- [http-nio-8080-exec-4] c.i.t.services.FileHandlerServiceImpl    : Ocena je uspesno azurirana.
+2023-03-09 22:04:51.618  INFO 6848 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 6848 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:04:51.628  INFO 6848 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:04:52.504  INFO 6848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:04:52.620  INFO 6848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:04:53.357  INFO 6848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:04:53.370  INFO 6848 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:04:53.370  INFO 6848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:04:53.512  INFO 6848 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:04:53.512  INFO 6848 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1814 ms
+2023-03-09 22:04:54.197  INFO 6848 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:04:54.653  INFO 6848 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:04:56.130  INFO 6848 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:04:56.848  WARN 6848 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:04:57.343  INFO 6848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:04:57.356  INFO 6848 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.328 seconds (JVM running for 7.521)
+2023-03-09 22:05:07.201  INFO 6848 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:05:07.202  INFO 6848 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:05:07.203  INFO 6848 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:05:07.574  INFO 6848 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Ocena je uspesno azurirana.
+2023-03-09 22:05:28.738  INFO 6848 --- [http-nio-8080-exec-5] c.i.t.services.FileHandlerServiceImpl    : Ocena je uspesno azurirana.
+2023-03-09 22:33:49.329  INFO 10972 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 10972 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:33:49.334  INFO 10972 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:33:50.217  INFO 10972 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:33:50.339  INFO 10972 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:33:51.077  INFO 10972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:33:51.090  INFO 10972 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:33:51.091  INFO 10972 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:33:51.228  INFO 10972 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:33:51.229  INFO 10972 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1829 ms
+2023-03-09 22:33:51.919  INFO 10972 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:33:52.368  INFO 10972 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:33:53.843  INFO 10972 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:33:54.564  WARN 10972 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:33:55.062  INFO 10972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:33:55.076  INFO 10972 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.342 seconds (JVM running for 7.541)
+2023-03-09 22:34:05.487  INFO 10972 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:34:05.488  INFO 10972 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:34:05.489  INFO 10972 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:34:05.624  INFO 10972 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Dodavanje nove ocene.
+2023-03-09 22:34:08.085  INFO 10972 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Nova ocena uspešno dodata.
+2023-03-09 22:36:48.615  INFO 13568 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 13568 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:36:48.621  INFO 13568 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:36:49.524  INFO 13568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:36:49.655  INFO 13568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 115 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:36:50.486  INFO 13568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:36:50.500  INFO 13568 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:36:50.501  INFO 13568 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:36:50.646  INFO 13568 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:36:50.646  INFO 13568 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1959 ms
+2023-03-09 22:36:51.338  INFO 13568 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:36:51.800  INFO 13568 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:36:53.328  INFO 13568 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:36:54.065  WARN 13568 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:36:54.607  INFO 13568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:36:54.621  INFO 13568 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.617 seconds (JVM running for 7.836)
+2023-03-09 22:37:08.518  INFO 13568 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:37:08.519  INFO 13568 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:37:08.520  INFO 13568 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:37:08.641  INFO 13568 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje ocene sa ID 34
+2023-03-09 22:46:05.337  INFO 10728 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 10728 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:46:05.342  INFO 10728 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:46:06.269  INFO 10728 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:46:06.394  INFO 10728 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:46:07.160  INFO 10728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:46:07.174  INFO 10728 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:46:07.174  INFO 10728 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:46:07.313  INFO 10728 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:46:07.313  INFO 10728 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1906 ms
+2023-03-09 22:46:07.985  INFO 10728 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:46:08.434  INFO 10728 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:46:09.902  INFO 10728 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:46:10.604  WARN 10728 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:46:11.090  INFO 10728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:46:11.102  INFO 10728 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.393 seconds (JVM running for 7.613)
+2023-03-09 22:46:39.384  INFO 10728 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:46:39.385  INFO 10728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:46:39.386  INFO 10728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:46:39.636  INFO 10728 --- [http-nio-8080-exec-1] c.i.t.services.FileHandlerServiceImpl    : Dodavanje novog nastavnika.
+2023-03-09 22:46:39.733  INFO 10728 --- [http-nio-8080-exec-1] c.i.t.services.FileHandlerServiceImpl    : Novi nastavnik uspešno dodat.
+2023-03-09 22:47:51.131  INFO 14024 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 14024 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:47:51.137  INFO 14024 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:47:52.028  INFO 14024 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:47:52.148  INFO 14024 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:47:52.903  INFO 14024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:47:52.916  INFO 14024 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:47:52.916  INFO 14024 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:47:53.053  INFO 14024 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:47:53.054  INFO 14024 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1851 ms
+2023-03-09 22:47:53.751  INFO 14024 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:47:54.211  INFO 14024 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:47:55.648  INFO 14024 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:47:56.357  WARN 14024 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:47:56.835  INFO 14024 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:47:56.847  INFO 14024 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.32 seconds (JVM running for 7.485)
+2023-03-09 22:48:26.247  INFO 14024 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:48:26.248  INFO 14024 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:48:26.249  INFO 14024 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:48:26.435  INFO 14024 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Pokušaj izmene nastavnika sa id-jem 101
+2023-03-09 22:48:26.590  INFO 14024 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Nastavnik sa id-jem 101 je uspešno izmenjen
+2023-03-09 22:53:12.246  INFO 17396 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 17396 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:53:12.256  INFO 17396 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:53:13.144  INFO 17396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:53:13.265  INFO 17396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:53:14.040  INFO 17396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:53:14.053  INFO 17396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:53:14.054  INFO 17396 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:53:14.194  INFO 17396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:53:14.195  INFO 17396 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1869 ms
+2023-03-09 22:53:14.913  INFO 17396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:53:15.379  INFO 17396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:53:16.828  INFO 17396 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:53:17.550  WARN 17396 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:53:18.040  INFO 17396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:53:18.053  INFO 17396 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.403 seconds (JVM running for 7.588)
+2023-03-09 22:54:07.895  INFO 17396 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:54:07.896  INFO 17396 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:54:07.897  INFO 17396 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:54:08.092  INFO 17396 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Dodavanje novog predmeta.
+2023-03-09 22:54:08.213  INFO 17396 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Novi predmet uspešno dodat.
+2023-03-09 22:54:32.202  INFO 17396 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Predmet sa ID: 102, je uspešno dodeljen nastavniku sa ID: 101, u razredu sa ID: 8
+2023-03-09 22:56:02.966  INFO 8656 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 8656 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 22:56:02.973  INFO 8656 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 22:56:03.857  INFO 8656 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 22:56:03.983  INFO 8656 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 10 JPA repository interfaces.
+2023-03-09 22:56:04.735  INFO 8656 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 22:56:04.748  INFO 8656 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 22:56:04.748  INFO 8656 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 22:56:04.885  INFO 8656 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 22:56:04.886  INFO 8656 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1849 ms
+2023-03-09 22:56:05.592  INFO 8656 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 22:56:06.052  INFO 8656 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 22:56:07.505  INFO 8656 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 22:56:08.223  WARN 8656 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 22:56:08.700  INFO 8656 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 22:56:08.713  INFO 8656 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.358 seconds (JVM running for 7.539)
+2023-03-09 22:56:39.055  INFO 8656 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 22:56:39.056  INFO 8656 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 22:56:39.057  INFO 8656 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 22:56:39.376  INFO 8656 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje nastavnikPredmeta sa ID 103
+2023-03-09 22:57:19.182  INFO 8656 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje nastavnika sa ID 101
+2023-03-09 22:57:42.663  INFO 8656 --- [http-nio-8080-exec-4] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje predmeta sa ID 102
+2023-03-09 23:27:36.596  INFO 16992 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 16992 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 23:27:36.607  INFO 16992 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 23:27:37.518  INFO 16992 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 23:27:37.643  INFO 16992 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 10 JPA repository interfaces.
+2023-03-09 23:27:38.401  INFO 16992 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 23:27:38.414  INFO 16992 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 23:27:38.415  INFO 16992 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 23:27:38.551  INFO 16992 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 23:27:38.552  INFO 16992 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1870 ms
+2023-03-09 23:27:39.249  INFO 16992 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 23:27:39.707  INFO 16992 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 23:27:41.180  INFO 16992 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 23:27:41.881  WARN 16992 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 23:27:42.371  INFO 16992 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 23:27:42.384  INFO 16992 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.445 seconds (JVM running for 7.762)
+2023-03-09 23:27:50.235  INFO 16992 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 23:27:50.236  INFO 16992 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 23:27:50.237  INFO 16992 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 23:27:50.273  INFO 16992 --- [http-nio-8080-exec-2] c.i.t.services.FileHandlerServiceImpl    : Getting all admins.
+2023-03-09 23:28:12.482  INFO 16992 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Pokušaj izmene admina sa id-jem 1
+2023-03-09 23:28:12.499 ERROR 16992 --- [http-nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.util.NoSuchElementException: No value present] with root cause
+
+java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143) ~[na:na]
+	at com.ivana.tema8.services.AdminServiceImpl.updateUcenik(AdminServiceImpl.java:71) ~[classes/:na]
+	at com.ivana.tema8.controllers.AdminController.updateUcenik(AdminController.java:60) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:920) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:699) ~[tomcat-embed-core-9.0.71.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.25.jar:5.3.25]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779) ~[tomcat-embed-core-9.0.71.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.25.jar:5.3.25]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-03-09 23:29:33.087  INFO 7476 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 7476 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 23:29:33.092  INFO 7476 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 23:29:34.004  INFO 7476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 23:29:34.138  INFO 7476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 10 JPA repository interfaces.
+2023-03-09 23:29:34.920  INFO 7476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 23:29:34.933  INFO 7476 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 23:29:34.933  INFO 7476 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 23:29:35.076  INFO 7476 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 23:29:35.077  INFO 7476 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1910 ms
+2023-03-09 23:29:35.804  INFO 7476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 23:29:36.257  INFO 7476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 23:29:37.799  INFO 7476 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 23:29:38.541  WARN 7476 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 23:29:39.032  INFO 7476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 23:29:39.045  INFO 7476 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.575 seconds (JVM running for 7.824)
+2023-03-09 23:29:46.034  INFO 13296 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 13296 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\pokusaj_projekta)
+2023-03-09 23:29:46.044  INFO 13296 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-09 23:29:46.952  INFO 13296 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-09 23:29:47.077  INFO 13296 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 10 JPA repository interfaces.
+2023-03-09 23:29:47.891  INFO 13296 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-09 23:29:47.905  INFO 13296 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-09 23:29:47.906  INFO 13296 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-09 23:29:48.048  INFO 13296 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-09 23:29:48.048  INFO 13296 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1932 ms
+2023-03-09 23:29:48.743  INFO 13296 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-09 23:29:49.200  INFO 13296 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-09 23:29:50.739  INFO 13296 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-09 23:29:51.451  WARN 13296 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-09 23:29:51.959  INFO 13296 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-09 23:29:51.972  INFO 13296 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 6.538 seconds (JVM running for 7.719)
+2023-03-09 23:30:05.139  INFO 13296 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-09 23:30:05.139  INFO 13296 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-09 23:30:05.140  INFO 13296 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-09 23:30:05.293  INFO 13296 --- [http-nio-8080-exec-1] c.i.t.services.FileHandlerServiceImpl    : Pokušaj izmene admina sa id-jem 8
+2023-03-09 23:30:05.395  INFO 13296 --- [http-nio-8080-exec-1] c.i.t.services.FileHandlerServiceImpl    : Admin sa id-jem 8 je uspešno izmenjen
+2023-03-09 23:30:31.042  INFO 13296 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Dodavanje novog admina.
+2023-03-09 23:30:31.106  INFO 13296 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Novi admin uspešno dodat.
+2023-03-09 23:30:42.953  INFO 13296 --- [http-nio-8080-exec-4] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje admina sa ID 104
