@@ -109,9 +109,6 @@ public class RoditeljServiceImpl implements RoditeljService {
 		}
 	}
 
-	
-	
-
 	private String createErrorMessage(BindingResult result) {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
 
