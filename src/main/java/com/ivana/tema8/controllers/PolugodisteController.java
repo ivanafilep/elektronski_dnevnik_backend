@@ -23,26 +23,52 @@ import com.ivana.tema8.entities.Polugodiste;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PolugodisteRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
+import com.ivana.tema8.services.PolugodisteServiceImpl;
 
 @RestController
 @RequestMapping(path = "api/v1/polugodiste")
 public class PolugodisteController {
-	
+
 	@Autowired
 	private PolugodisteRepository polugodisteRepository;
-	@Autowired 
+	@Autowired
 	private OcenaRepository ocenaRepository;
-	
+	@Autowired
+	private PolugodisteServiceImpl polugodisteService;
+
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all polugodiste");
 		return new ResponseEntity<Iterable<Polugodiste>>(polugodisteRepository.findAll(), HttpStatus.OK);
 	}
-	
+
+	// CREATE POLUGODISTE
 	@RequestMapping(method = RequestMethod.POST, path = "/novoPolugodiste")
+	public ResponseEntity<?> addNewPolugodiste(@Valid @RequestBody PolugodisteDTO novoPolugodiste,
+			BindingResult result) {
+		return polugodisteService.addNewPolugodiste(novoPolugodiste, result);
+	}
+	
+	//UPDATE
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
+		return polugodisteService.updatePolugodiste(id, updatedPolugodiste, result);
+	}
+
+	// DELETE POLUGODISTE
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> deletePolugodiste(@PathVariable Integer id) {
+		return polugodisteService.deletePolugodiste(id);
+	}
+
+	private String createErrorMessage(BindingResult result) {
+		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
+
+	}
+
+	/*
 	public ResponseEntity<?> addNewPolugodiste (@Valid @RequestBody PolugodisteDTO novoPolugodiste, BindingResult result) {
 		Polugodiste newPolugodiste = new Polugodiste();
 		
@@ -60,13 +86,6 @@ public class PolugodisteController {
 		return new ResponseEntity<>(newPolugodiste, HttpStatus.OK);
 	}
 	
-
-	private String createErrorMessage(BindingResult result) {
-		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
-
-	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePolugodiste (@PathVariable Integer id) {
 		Optional<Polugodiste> polugodiste = polugodisteRepository.findById(id);
 			if (polugodiste.isEmpty()) {
@@ -81,6 +100,10 @@ public class PolugodisteController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
+		return polugodisteService.updatePolugodiste(id, updatedPolugodiste, result);
+	}
+	/*
 	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
 		logger.info("Pokušaj izmene polugodista sa id-jem {}", id);
 		Polugodiste polugodiste = polugodisteRepository.findById(id).get();
@@ -97,6 +120,7 @@ public class PolugodisteController {
 		logger.info("Polugodiste sa id-jem {} je uspešno izmenjen", id);
 		return new ResponseEntity<>(polugodiste, HttpStatus.OK);
 	}
+	*/
 
 	
 }
