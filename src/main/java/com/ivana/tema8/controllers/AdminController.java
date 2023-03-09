@@ -24,28 +24,79 @@ import com.ivana.tema8.entities.Admin;
 import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.repositories.AdminRepository;
 import com.ivana.tema8.repositories.RoleRepository;
+import com.ivana.tema8.services.AdminServiceImpl;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 
 @RestController
 @RequestMapping(path = "api/v1/admin")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminRepository adminRepository;
-	
+	@Autowired
+	private AdminServiceImpl adminService;
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all admins.");
 		return new ResponseEntity<Iterable<Admin>>(adminRepository.findAll(), HttpStatus.OK);
 	}
 
+	// REGISTRACIJA ADMINA
 	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
+		return adminService.addNewAdmin(newUser, result);
+	}
+
+	// ADMIN MOZE OVO
+	// UPDATE ADMINA
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
+			BindingResult result) {
+		return adminService.updateAdmin(id, updatedAdmin, result);
+	}
+
+	// DELETE ADMINA
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> deleteAdmin(@PathVariable Integer id) {
+		return adminService.deleteAdmin(id);
+	}
+
+	// PRETRAGA PO ID
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	public ResponseEntity<?> getAdminById(@PathVariable Integer id) {
+		Optional<Admin> admin = adminRepository.findById(id);
+
+		if (!admin.isPresent()) {
+			logger.warn("Nije pronadjen admin sa ID: {}", id);
+			return new ResponseEntity<>("Admin nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Admin sa ID: {} je uspesno pronadjen", id);
+		return new ResponseEntity<>(admin.get(), HttpStatus.OK);
+	}
+
+	// PRETRAGA PO IMENU
+	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
+	public ResponseEntity<?> getAdminByIme(@RequestParam String ime) {
+		Optional<Admin> admin = adminRepository.findByIme(ime);
+
+		if (!admin.isPresent()) {
+			logger.warn("Nije pronadjen admin sa imenom: {}", ime);
+			return new ResponseEntity<>("Admin nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Admin sa imenom: {} je uspesno pronadjen", ime);
+		return new ResponseEntity<>(admin.get(), HttpStatus.OK);
+	}
+
+	private String createErrorMessage(BindingResult result) {
+		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
+
+	}
+	/*
 	public ResponseEntity<?> addNewAdmin (@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Admin newAdmin = new Admin();
 		RoleEntity roleEntity = roleRepository.findById(1).orElse(null);
@@ -75,14 +126,6 @@ public class AdminController {
 		return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
 	}
 	
-	private String createErrorMessage(BindingResult result) {
-		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
-
-	}
-	
-
-	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-	public ResponseEntity<?> deleteAdmin (@PathVariable Integer id) {
 		Optional<Admin> admin = adminRepository.findById(id);
 			if (admin.isEmpty()) {
 				logger.warn("Zahtev sa brisanje nastavnika sa nepostojecim ID {}", id);
@@ -94,10 +137,7 @@ public class AdminController {
 				
 			}			
 	}
-	
-	//ADMIN MOZE OVO
-		@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-		public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin, BindingResult result) {
+	/*
 			logger.info("Pokušaj izmene admina sa id-jem {}", id);
 			Admin admin = adminRepository.findById(id).get();
 			
@@ -119,27 +159,6 @@ public class AdminController {
 			return new ResponseEntity<>(admin, HttpStatus.OK);
 		}
 		
-		@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-		public ResponseEntity<?> getAdminById (@PathVariable Integer id) {
-			Optional<Admin> admin = adminRepository.findById(id);
-			
-			if (!admin.isPresent()) {
-				logger.warn("Nije pronadjen admin sa ID: {}", id);
-		        return new ResponseEntity<>("Admin nije pronadjen", HttpStatus.NOT_FOUND);
-		    }
-			logger.info("Admin sa ID: {} je uspesno pronadjen", id);
-		    return new ResponseEntity<>(admin.get(), HttpStatus.OK);
-		}
+		*/
 	
-		@RequestMapping(method = RequestMethod.GET, path = "/by-name")
-		public ResponseEntity<?> getAdminByIme (@RequestParam String ime) {
-			Optional<Admin> admin = adminRepository.findByIme(ime);
-			
-			if (!admin.isPresent()) {
-				logger.warn("Nije pronadjen admin sa imenom: {}", ime);
-		        return new ResponseEntity<>("Admin nije pronadjen", HttpStatus.NOT_FOUND);
-		    }
-			logger.info("Admin sa imenom: {} je uspesno pronadjen", ime);
-		    return new ResponseEntity<>(admin.get(), HttpStatus.OK);
-		}
 }

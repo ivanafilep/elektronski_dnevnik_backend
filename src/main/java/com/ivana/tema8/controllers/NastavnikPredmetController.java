@@ -22,11 +22,12 @@ import com.ivana.tema8.repositories.NastavnikRepository;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
+import com.ivana.tema8.services.NastavnikPredmetServiceImpl;
 
 @RestController
 @RequestMapping(path = "/api/v1/nastavnikPredmet")
 public class NastavnikPredmetController {
-	
+
 	@Autowired
 	private PredmetRepository predmetRepository;
 	@Autowired
@@ -35,18 +36,30 @@ public class NastavnikPredmetController {
 	private NastavnikPredmetRepository nastavnikPredmetRepository;
 	@Autowired
 	private OcenaRepository ocenaRepository;
-	
+	@Autowired
+	private NastavnikPredmetServiceImpl nastavnikPredmetService;
+
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all nastavnikPredmet.");
 		return new ResponseEntity<Iterable<NastavnikPredmet>>(nastavnikPredmetRepository.findAll(), HttpStatus.OK);
 	}
-	
 
+	// DODELI PREDMET NASTAVNIKU
 	@RequestMapping(method = RequestMethod.PUT, path = "/nastavnik/{nastavnikId}/predmet/{predmetId}/{razred}")
+	public ResponseEntity<?> dodeliPredmetNastavniku(@PathVariable Integer nastavnikId, @PathVariable Integer predmetId,
+			@PathVariable Integer razred) {
+		return nastavnikPredmetService.dodeliPredmetNastavniku(nastavnikId, predmetId, razred);
+	}
+
+	// OBRISI
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {
+		return nastavnikPredmetService.obrisiNastavnikPredmet(id);
+	}
+	/*
 	public ResponseEntity<?> dodeliPredmetNastavniku(@PathVariable Integer nastavnikId, @PathVariable Integer predmetId, @PathVariable Integer razred) {
 		
 	    Optional<Nastavnik> nastavnik = nastavnikRepository.findById(nastavnikId);
@@ -67,19 +80,15 @@ public class NastavnikPredmetController {
 	    
 	    
 	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+
 	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {
 	    Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(id);
 	    if (!nastavnikPredmet.isPresent()) {
 	        logger.warn("Zahtev sa brisanje nastavnikPredmet sa nepostojecim ID {}", id);
 	        return new ResponseEntity<>("NastavnikPredmet nije pronađen", HttpStatus.NOT_FOUND);
 	    }
-
-	    // pronađi sve ocene koje koriste ovaj nastavnik_predmet
 	    List<Ocena> ocene = ocenaRepository.findByNastavnikPredmet(nastavnikPredmet.get());
 
-	    // obriši sve pronađene ocene
 	    ocenaRepository.deleteAll(ocene);
 
 	    logger.info("DELETE zahtev za brisanje nastavnikPredmeta sa ID {}", id);
@@ -87,7 +96,7 @@ public class NastavnikPredmetController {
 	    return new ResponseEntity<>("NastavnikPredmet je uspešno obrisan", HttpStatus.OK);
 	}
 
-
+*/
 	
 
 }
