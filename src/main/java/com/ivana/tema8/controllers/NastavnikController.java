@@ -99,6 +99,7 @@ public class NastavnikController {
 	
 	
 	//ADMIN MOZE OVO
+	//PROMENI, OBRISI NASTAVNIKPREDMET REFERENCU
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteNastavnik (@PathVariable Integer id) {
 		Optional<Nastavnik> nastavnik = nastavnikRepository.findById(id);
