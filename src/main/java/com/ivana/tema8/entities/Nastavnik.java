@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Nastavnik extends Korisnik {
 	
 
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "nastavnik", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<NastavnikPredmet> nastavnikPredmet = new ArrayList<NastavnikPredmet>();

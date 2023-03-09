@@ -38,7 +38,7 @@ public class Predmet {
 	private Integer nedeljniFondCasova;
 	
 
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "predmet", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<NastavnikPredmet> nastavnikPredmet = new ArrayList<NastavnikPredmet>();

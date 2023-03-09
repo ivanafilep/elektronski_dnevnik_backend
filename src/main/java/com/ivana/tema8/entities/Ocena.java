@@ -15,6 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,20 +31,20 @@ public class Ocena {
 	@NotNull(message = "Ocena mora biti navedena.")
 	private Integer vrednostOcene;
 	
-	@JsonBackReference
+	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "nastavnikPredmet")
 	@JsonProperty("nastavnikPredmet")
 	private NastavnikPredmet nastavnikPredmet;
 	
 	
-	@JsonBackReference
+	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ucenik")
 	@JsonProperty("ucenik")
 	private Ucenik ucenik;
 	
-	@JsonBackReference
+	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "polugodiste")
 	@JsonProperty("polugodiste")

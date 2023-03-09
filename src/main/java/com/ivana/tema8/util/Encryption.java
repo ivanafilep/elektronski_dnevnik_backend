@@ -1,4 +1,5 @@
-package com.ivana.tema8.util;
+
+/*package com.ivana.tema8.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -23,6 +24,7 @@ public class Encryption {
 	}
 	
 
-//$2a$10$h5l9Dr/3SsGTfBp2E95Q5uya6OzjZEtkEjZpnyfKGm9dQreY9OVc6
+
 	
 }
+*/

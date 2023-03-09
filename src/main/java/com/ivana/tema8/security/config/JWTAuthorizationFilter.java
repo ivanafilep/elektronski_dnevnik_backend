@@ -1,3 +1,4 @@
+/*
 package com.ivana.tema8.security.config;
 
 import java.io.IOException;
@@ -69,3 +70,4 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}
 
 }
+*/

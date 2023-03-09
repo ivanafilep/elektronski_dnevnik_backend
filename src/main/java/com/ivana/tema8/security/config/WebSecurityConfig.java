@@ -1,3 +1,4 @@
+/*
 package com.ivana.tema8.security.config;
 
 import javax.crypto.SecretKey;
@@ -39,3 +40,4 @@ public class WebSecurityConfig {
 	}
 
 }
+*/

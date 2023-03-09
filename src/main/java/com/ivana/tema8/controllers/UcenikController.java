@@ -1,6 +1,8 @@
 package com.ivana.tema8.controllers;
 
 import java.util.List;
+
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -9,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.NastavnikPredmet;
+import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Roditelj;
 import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
+import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.repositories.RoditeljRepository;
 import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 import com.ivana.tema8.security.Views;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
+import com.ivana.tema8.services.UcenikService;
 
 
 @RestController
@@ -51,6 +56,10 @@ public class UcenikController {
 	private NastavnikPredmetRepository nastavnikPredmetRepository;
 	@Autowired
 	private PredmetRepository predmetRepository;
+	@Autowired
+	private OcenaRepository ocenaRepository;
+	@Autowired
+	private UcenikService ucenikService;
 	
 	
 	
@@ -104,20 +113,22 @@ public class UcenikController {
 	//ADMIN MOZE OVO
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteUcenik (@PathVariable Integer id) {
-		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
-			if (ucenik.isEmpty()) {
-				logger.warn("Zahtev sa brisanje ucenika sa nepostojecim ID {}", id);
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				logger.info("DELETE zahtev za brisanje ucenika sa ID {}", id);
-				ucenikRepository.delete(ucenik.get());
-				return new ResponseEntity<>(HttpStatus.OK);
-				
-			}			
+	    Optional<Ucenik> ucenik = ucenikRepository.findById(id);
+	    if (ucenik.isEmpty()) {
+	        logger.warn("Zahtev sa brisanje ucenika sa nepostojecim ID {}", id);
+	        return new ResponseEntity<>("Ucenik sa zatrazenim ID- jem ne postoji.", HttpStatus.NOT_FOUND);
+	    } else {
+	        ucenikService.obrisiOceneUcenika(id);
+	        ucenikService.obrisiUcenika(id);
+	        logger.info("DELETE zahtev za brisanje ucenika sa ID {}", id);
+	        return new ResponseEntity<>("Ucenik je uspesno obrisan", HttpStatus.OK);
+	    }			
 	}
+
 	
 	
-	//ADMIN MOZE OVO
+	// ADMIN MOZE OVO
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedUcenik, BindingResult result) {
 		logger.info("Pokušaj izmene učenika sa id-jem {}", id);
