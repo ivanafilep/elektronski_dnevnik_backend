@@ -99,20 +99,26 @@ public class NastavnikController {
 	
 	
 	//ADMIN MOZE OVO
-	//PROMENI, OBRISI NASTAVNIKPREDMET REFERENCU
+	
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteNastavnik (@PathVariable Integer id) {
-		Optional<Nastavnik> nastavnik = nastavnikRepository.findById(id);
-			if (nastavnik.isEmpty()) {
-				logger.warn("Zahtev sa brisanje nastavnika sa nepostojecim ID {}", id);
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				logger.info("DELETE zahtev za brisanje nastavnika sa ID {}", id);
-				nastavnikRepository.delete(nastavnik.get());
-				return new ResponseEntity<>(HttpStatus.OK);
-				
-			}			
+	    Optional<Nastavnik> nastavnik = nastavnikRepository.findById(id);
+	    if (nastavnik.isEmpty()) {
+	        logger.warn("Zahtev sa brisanje nastavnika sa nepostojecim ID {}", id);
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    } else {
+	        logger.info("DELETE zahtev za brisanje nastavnika sa ID {}", id);
+	        List<NastavnikPredmet> nastavnikPredmeti = nastavnikPredmetRepository.findByNastavnikId(id);
+	        for (NastavnikPredmet np : nastavnikPredmeti) {
+	            np.setNastavnik(null); // postavljanje reference na null
+	            nastavnikPredmetRepository.save(np); // čuvanje izmena
+	        }
+	        nastavnikRepository.deleteById(id); // brisanje nastavnika
+	        return new ResponseEntity<>("Nastavnik je uspesno obrisan.", HttpStatus.OK);
+	    }			
 	}
+
+
 	
 	//ADMIN MOZE OVO
 		@RequestMapping(method = RequestMethod.PUT, path = "/{id}")

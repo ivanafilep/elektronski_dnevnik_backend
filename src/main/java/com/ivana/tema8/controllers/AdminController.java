@@ -130,9 +130,9 @@ public class AdminController {
 			logger.info("Admin sa ID: {} je uspesno pronadjen", id);
 		    return new ResponseEntity<>(admin.get(), HttpStatus.OK);
 		}
-		
+	
 		@RequestMapping(method = RequestMethod.GET, path = "/by-name")
-		public ResponseEntity<?> getAdminById (@RequestParam String ime) {
+		public ResponseEntity<?> getAdminByIme (@RequestParam String ime) {
 			Optional<Admin> admin = adminRepository.findByIme(ime);
 			
 			if (!admin.isPresent()) {

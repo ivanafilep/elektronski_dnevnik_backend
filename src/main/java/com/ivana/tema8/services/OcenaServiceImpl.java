@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import com.ivana.tema8.entities.Ocena;
+import com.ivana.tema8.entities.Predmet;
 
 @Service
 public class OcenaServiceImpl implements OcenaService {
@@ -14,16 +15,16 @@ public class OcenaServiceImpl implements OcenaService {
 	@PersistenceContext
 	private EntityManager em;
 	
+	
 	@Override
 	public Iterable<Ocena> findOcenaByPredmet(String nazivPredmeta) {
-		String hql = "SELECT o.vrednostOcene "
-				+ "FROM Ocena o JOIN o.nastavnikPredmet np "
-				+"JOIN np.predmet p "
+		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o JOIN o.nastavnikPredmet np " + "JOIN np.predmet p "
 				+ "WHERE p.nazivPredmeta = :nazivPredmeta ";
-		Query query  = em.createQuery(hql);
+		Query query = em.createQuery(hql);
 		query.setParameter("nazivPredmeta", nazivPredmeta);
 		return query.getResultList();
 	}
+	
 	
 	@Override
 	public Iterable<Ocena> findOcenaByIme(String ime) {
@@ -65,5 +66,9 @@ public class OcenaServiceImpl implements OcenaService {
 		query.setParameter("nazivPredmeta", nazivPredmeta);
 		return query.getResultList();
 	}
+	
+
+
+
 
 }
