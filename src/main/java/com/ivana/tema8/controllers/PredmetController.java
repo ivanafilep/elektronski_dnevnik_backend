@@ -28,28 +28,112 @@ import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.NastavnikRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
+import com.ivana.tema8.services.PredmetServiceImpl;
 
 @RestController
 @RequestMapping(path = "/api/v1/predmet")
 public class PredmetController {
-	
+
 	@Autowired
 	private PredmetRepository predmetRepository;
-	@Autowired 
+	@Autowired
 	private NastavnikRepository nastavnikRepository;
 	@Autowired
 	private NastavnikPredmetRepository nastavnikPredmetRepository;
+	@Autowired
+	private PredmetServiceImpl predmetService;
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	//ADMIN RADI OVO
+	// ADMIN RADI OVO
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all predmeti");
 		return new ResponseEntity<Iterable<Predmet>>(predmetRepository.findAll(), HttpStatus.OK);
 	}
-	
+
+	// CREATE PREDMET
 	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> addNewUPredmet(@Valid @RequestBody PredmetDTO newPredmet, BindingResult result) {
+		return predmetService.addNewUPredmet(newPredmet, result);
+	}
+
+	// UPDATE PREDMET
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet,
+			BindingResult result) {
+		return predmetService.updatePredmet(id, updatedPredmet, result);
+	}
+
+	// DELETE PREDEMT
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {
+		return predmetService.deletePredmet(id);
+	}
+
+	// PRETRAGA PO ID
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	public ResponseEntity<?> getPredmetById(@PathVariable Integer id) {
+		Optional<Predmet> predmet = predmetRepository.findById(id);
+
+		if (!predmet.isPresent()) {
+			logger.warn("Nije pronadjen predmet sa ID: {}", id);
+			return new ResponseEntity<>("Predmet nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Predmet sa ID: {} je uspesno pronadjen", id);
+		return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
+	}
+
+	// PRETRAGA PO IMENU
+	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
+	public ResponseEntity<?> getPredmetByName(@RequestParam String ime) {
+		Optional<Predmet> predmet = predmetRepository.findByNazivPredmeta(ime);
+
+		if (!predmet.isPresent()) {
+			logger.warn("Nije pronadjen predmet sa imenom: {}", ime);
+			return new ResponseEntity<>("Predmet nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Predmet sa imenom: {} je uspesno pronadjen", ime);
+		return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
+	}
+
+	// nadji predmet po id-u nastavnika
+	@RequestMapping(method = RequestMethod.GET, path = "/nastavnik/{nastavnikId}")
+	public ResponseEntity<?> getPredmetByNastavnikId(@PathVariable Integer nastavnikId) {
+		Optional<Nastavnik> nastavnik = nastavnikRepository.findById(nastavnikId);
+		if (!nastavnik.isPresent()) {
+			logger.warn("Nije pronadjen nastavnik sa ID: {}", nastavnikId);
+			return new ResponseEntity<>("Nastavnik nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		List<NastavnikPredmet> nastavnikPredmetList = nastavnikPredmetRepository.findByNastavnik(nastavnik.get());
+		List<Predmet> predmeti = nastavnikPredmetList.stream().map(NastavnikPredmet::getPredmet)
+				.collect(Collectors.toList());
+		logger.info("Predmet sa ID: {} je uspesno pronadjen", nastavnikId);
+		return new ResponseEntity<>(predmeti, HttpStatus.OK);
+	}
+
+	// nadji predmet po imenu nastavnika
+	@RequestMapping(method = RequestMethod.GET, path = "/nastavnikIme")
+	public ResponseEntity<?> getPredmetByNastavnikIme(@RequestParam String ime) {
+		Optional<Nastavnik> nastavnik = nastavnikRepository.findByIme(ime);
+		if (!nastavnik.isPresent()) {
+			logger.warn("Nije pronadjen nastavnik sa imenom: {}", ime);
+			return new ResponseEntity<>("Nastavnik nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		List<NastavnikPredmet> nastavnikPredmetList = nastavnikPredmetRepository.findByNastavnik(nastavnik.get());
+		List<Predmet> predmeti = nastavnikPredmetList.stream().map(NastavnikPredmet::getPredmet)
+				.collect(Collectors.toList());
+		logger.info("Predmet sa imenom nastavnika: {} je uspesno pronadjen", ime);
+		return new ResponseEntity<>(predmeti, HttpStatus.OK);
+
+	}
+
+	private String createErrorMessage(BindingResult result) {
+		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
+
+	}
+
+	/*
 	public ResponseEntity<?> addNewUPredmet (@Valid @RequestBody PredmetDTO newPredmet, BindingResult result) {
 		Predmet newPredmet1 = new Predmet();
 		
@@ -67,16 +151,8 @@ public class PredmetController {
 		logger.info("Novi predmet uspešno dodat.");
 		return new ResponseEntity<>(newPredmet1, HttpStatus.CREATED);
 	}
-	
-	private String createErrorMessage(BindingResult result) {
-		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
 
-	}
 	
-	//ADMIN MOZE OVO
-	
-	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {
 	    Optional<Predmet> predmet = predmetRepository.findById(id);
 	    if (predmet.isEmpty()) {
@@ -97,9 +173,11 @@ public class PredmetController {
 	}
 
 		
-		
-		
 		@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+		public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet, BindingResult result) {
+			return predmetService.updatePredmet(id, updatedPredmet, result);
+		}
+		/*
 		public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet, BindingResult result) {
 			logger.info("Pokušaj izmene predmeta sa id-jem {}", id);
 			Predmet predmet = predmetRepository.findById(id).get();
@@ -117,64 +195,8 @@ public class PredmetController {
 			logger.info("Predmet sa id-jem {} je uspešno izmenjen", id);
 			return new ResponseEntity<>(predmet, HttpStatus.OK);
 		}
+		*/
 		
-		@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-		public ResponseEntity<?> getPredmetById (@PathVariable Integer id) {
-			Optional<Predmet> predmet = predmetRepository.findById(id);
-			
-			if (!predmet.isPresent()) {
-				logger.warn("Nije pronadjen predmet sa ID: {}", id);
-		        return new ResponseEntity<>("Predmet nije pronadjen", HttpStatus.NOT_FOUND);
-		    }
-			logger.info("Predmet sa ID: {} je uspesno pronadjen", id);
-		    return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
-		}
-		
-		@RequestMapping(method = RequestMethod.GET, path = "/by-name")
-		public ResponseEntity<?> getPredmetByName (@RequestParam String ime) {
-			Optional<Predmet> predmet = predmetRepository.findByNazivPredmeta(ime);
-			
-			if (!predmet.isPresent()) {
-				logger.warn("Nije pronadjen predmet sa imenom: {}", ime);
-		        return new ResponseEntity<>("Predmet nije pronadjen", HttpStatus.NOT_FOUND);
-		    }
-			logger.info("Predmet sa imenom: {} je uspesno pronadjen", ime);
-		    return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
-		}
-		
-		
-		//nadji predmet po id-u nastavnika
-		@RequestMapping(method = RequestMethod.GET, path = "/nastavnik/{nastavnikId}")
-		public ResponseEntity<?> getPredmetByNastavnikId(@PathVariable Integer nastavnikId) {
-		    Optional<Nastavnik> nastavnik = nastavnikRepository.findById(nastavnikId);
-		    if (!nastavnik.isPresent()) {
-		    	logger.warn("Nije pronadjen nastavnik sa ID: {}", nastavnikId);
-		        return new ResponseEntity<>("Nastavnik nije pronadjen", HttpStatus.NOT_FOUND);
-		    }
-		    List<NastavnikPredmet> nastavnikPredmetList = nastavnikPredmetRepository.findByNastavnik(nastavnik.get());
-		    List<Predmet> predmeti = nastavnikPredmetList.stream()
-		            .map(NastavnikPredmet::getPredmet)
-		            .collect(Collectors.toList());
-		    logger.info("Predmet sa ID: {} je uspesno pronadjen", nastavnikId);
-		    return new ResponseEntity<>(predmeti, HttpStatus.OK);
-		}
-
-		//nadji predmet po imenu nastavnika 
-		@RequestMapping(method = RequestMethod.GET, path = "/nastavnikIme")
-		public ResponseEntity<?> getPredmetByNastavnikIme (@RequestParam String ime) {
-			Optional<Nastavnik> nastavnik = nastavnikRepository.findByIme(ime);
-			if(!nastavnik.isPresent()) {
-				logger.warn("Nije pronadjen nastavnik sa imenom: {}", ime);
-				return new ResponseEntity<>("Nastavnik nije pronadjen", HttpStatus.NOT_FOUND);
-			}
-			List<NastavnikPredmet> nastavnikPredmetList = nastavnikPredmetRepository.findByNastavnik(nastavnik.get());
-			List<Predmet> predmeti = nastavnikPredmetList.stream()
-			            .map(NastavnikPredmet::getPredmet)
-			            .collect(Collectors.toList());
-			logger.info("Predmet sa imenom nastavnika: {} je uspesno pronadjen", ime);
-			    return new ResponseEntity<>(predmeti, HttpStatus.OK);
-			
-		}
 		
 		
 		
