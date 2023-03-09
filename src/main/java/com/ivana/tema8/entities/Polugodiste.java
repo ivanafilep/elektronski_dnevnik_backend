@@ -30,7 +30,7 @@ public class Polugodiste {
 	@Max (value = 2, message = "Polugodiste ne moze biti vece od 2.")
 	private Integer brojPolugodista;
 	
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "polugodiste", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<Ocena> ocene = new ArrayList<Ocena>();

@@ -74,19 +74,30 @@ public class PredmetController {
 	}
 	
 	//ADMIN MOZE OVO
-		@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-		public ResponseEntity<?> deletePredmet (@PathVariable Integer id) {
-			Optional<Predmet> predmet = predmetRepository.findById(id);
-				if (predmet.isEmpty()) {
-					logger.warn("Zahtev sa brisanje predmeta sa nepostojecim ID {}", id);
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-				} else {
-					logger.info("DELETE zahtev za brisanje predmeta sa ID {}", id);
-					predmetRepository.delete(predmet.get());
-					return new ResponseEntity<>(HttpStatus.OK);
-					
-				}			
-		}
+	
+	
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {
+	    Optional<Predmet> predmet = predmetRepository.findById(id);
+	    if (predmet.isEmpty()) {
+	        logger.warn("Zahtev sa brisanje predmeta sa nepostojecim ID {}", id);
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    } else {
+	        
+	        List<NastavnikPredmet> nastavnikPredmeti = nastavnikPredmetRepository.findByPredmet(predmet.get());
+	        
+	        for (NastavnikPredmet np : nastavnikPredmeti) {
+	            np.setPredmet(null);
+	            nastavnikPredmetRepository.save(np);
+	        }
+	        logger.info("DELETE zahtev za brisanje predmeta sa ID {}", id);
+	        predmetRepository.delete(predmet.get());
+	        return new ResponseEntity<>("Predmet je uspesno obrisan", HttpStatus.OK);
+	    }
+	}
+
+		
+		
 		
 		@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 		public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet, BindingResult result) {

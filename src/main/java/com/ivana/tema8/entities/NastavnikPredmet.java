@@ -31,18 +31,18 @@ public class NastavnikPredmet {
 	@Column
 	private Integer razred;
 	
-	@JsonBackReference
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "predmet")
 	private Predmet predmet;
 	
-	@JsonBackReference
+	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "nastavnik")
 	private Nastavnik nastavnik;
 	
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "nastavnikPredmet", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<Ocena> ocene = new ArrayList<Ocena>();

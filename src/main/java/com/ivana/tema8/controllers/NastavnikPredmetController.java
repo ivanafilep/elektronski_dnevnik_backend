@@ -1,5 +1,6 @@
 package com.ivana.tema8.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
+import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Predmet;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.NastavnikRepository;
+import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 
@@ -30,6 +33,8 @@ public class NastavnikPredmetController {
 	private NastavnikRepository nastavnikRepository;
 	@Autowired
 	private NastavnikPredmetRepository nastavnikPredmetRepository;
+	@Autowired
+	private OcenaRepository ocenaRepository;
 	
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 	
@@ -63,20 +68,26 @@ public class NastavnikPredmetController {
 	    
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {
 	    Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(id);
 	    if (!nastavnikPredmet.isPresent()) {
-	    	logger.warn("Zahtev sa brisanje nastavnikPredmet sa nepostojecim ID {}", id);
+	        logger.warn("Zahtev sa brisanje nastavnikPredmet sa nepostojecim ID {}", id);
 	        return new ResponseEntity<>("NastavnikPredmet nije pronađen", HttpStatus.NOT_FOUND);
 	    }
+
+	    // pronađi sve ocene koje koriste ovaj nastavnik_predmet
+	    List<Ocena> ocene = ocenaRepository.findByNastavnikPredmet(nastavnikPredmet.get());
+
+	    // obriši sve pronađene ocene
+	    ocenaRepository.deleteAll(ocene);
+
 	    logger.info("DELETE zahtev za brisanje nastavnikPredmeta sa ID {}", id);
 	    nastavnikPredmetRepository.delete(nastavnikPredmet.get());
 	    return new ResponseEntity<>("NastavnikPredmet je uspešno obrisan", HttpStatus.OK);
 	}
 
-	
+
 	
 
 }

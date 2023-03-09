@@ -94,9 +94,17 @@ public class RoditeljController {
 				logger.warn("Zahtev sa brisanje roditelja sa nepostojecim ID {}", id);
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else {
+				
+				if(!roditelj.get().getDete().isEmpty()) {
+				    for(Ucenik ucenik : roditelj.get().getDete()) {
+				        ucenik.setRoditelj(null);
+				        ucenikRepository.save(ucenik); 
+				    }
+				}
+
 				logger.info("DELETE zahtev za brisanje roditelja sa ID {}", id);
 				roditeljRepository.delete(roditelj.get());
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>("Roditelj je uspesno obrisan.", HttpStatus.OK);
 				
 			}						
 	}
@@ -112,6 +120,7 @@ public class RoditeljController {
 			roditelj.setIme(updatedRoditelj.getIme());
 			roditelj.setPrezime(updatedRoditelj.getPrezime());
 			roditelj.setEmail(updatedRoditelj.getEmail());
+			
 			
 			
 			if (result.hasErrors()) {

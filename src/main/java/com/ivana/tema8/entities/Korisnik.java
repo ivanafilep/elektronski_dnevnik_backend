@@ -29,7 +29,7 @@ import com.ivana.tema8.security.Views;
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Korisnik {
 
-	@JsonView(Views.Public.class)
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
