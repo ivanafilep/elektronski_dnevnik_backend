@@ -53,28 +53,33 @@ public class OcenaController {
 		return new ResponseEntity<Iterable<Ocena>>(ocenaRepository.findAll(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestBody Ocena ocena) {
-	logger.info("Pokušaj izmene ocene sa id-jem {}", id);
-	Optional<Ocena> existingOcena = ocenaRepository.findById(id);
-	 if (existingOcena.isPresent()) {
-	        
-	        Ocena updatedOcena = existingOcena.get();
-	        updatedOcena.setVrednostOcene(ocena.getVrednostOcene());
-	        updatedOcena.setNastavnikPredmet(ocena.getNastavnikPredmet());
-	        updatedOcena.setUcenik(ocena.getUcenik());
-	        updatedOcena.setPolugodiste(ocena.getPolugodiste());
-	        
-	        
-	        ocenaRepository.save(updatedOcena);
-	        logger.info("Ocena sa id-jem {} je uspešno izmenjena", id);
-	        return new ResponseEntity<>("Ocena je uspešno ažurirana", HttpStatus.OK);
-	    } else {
-	        
-	        return new ResponseEntity<>("Ocena nije pronađena", HttpStatus.NOT_FOUND);
-	    }
-	}
 	
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
+			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
+		Optional<Ocena> ocenaOptional = ocenaRepository.findById(id);
+
+		if (!ocenaOptional.isPresent()) {
+			return new ResponseEntity<>("Ocena nije pronadjena", HttpStatus.BAD_REQUEST);
+		}
+
+		Ocena existingOcena = ocenaOptional.get();
+		NastavnikPredmet nastavnikPredmet = nastavnikPredmetRepository.findByNastavnikIdAndPredmetId(nastavnikId,
+				predmetId);
+
+		if (nastavnikPredmet == null) {
+			return new ResponseEntity<>("Nastavnik ne predaje ovaj predmet.", HttpStatus.BAD_REQUEST);
+		}
+
+		existingOcena.setVrednostOcene(vrednostOcene);
+		existingOcena.setNastavnikPredmet(nastavnikPredmet);
+
+		Ocena updatedOcena = ocenaRepository.save(existingOcena);
+		
+		logger.info("Ocena je uspesno azurirana.");
+		return new ResponseEntity<>("Ocena je uspesno azurirana.", HttpStatus.OK);
+	}
+
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/{vrednostOcene}/{nastavnikPredmetId}/{ucenikId}/{polugodisteId}")
 	public ResponseEntity<?> createOcena( @PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId, @PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {

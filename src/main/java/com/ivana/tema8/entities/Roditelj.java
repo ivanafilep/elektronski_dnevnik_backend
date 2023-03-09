@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
 public class Roditelj extends Korisnik {
 	
-	@JsonBackReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "roditelj", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<Ucenik> dete = new ArrayList<Ucenik>();

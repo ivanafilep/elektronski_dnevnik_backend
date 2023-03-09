@@ -14,6 +14,8 @@ public interface NastavnikPredmetRepository extends CrudRepository<NastavnikPred
 
 	List<NastavnikPredmet> findByNastavnik(Nastavnik nastavnik);
 
+	NastavnikPredmet findByNastavnikIdAndPredmetId(Integer nastavnikId, Integer predmetId);
+
 	
 
 

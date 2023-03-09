@@ -31,7 +31,7 @@ public class Ocena {
 	@NotNull(message = "Ocena mora biti navedena.")
 	private Integer vrednostOcene;
 	
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "nastavnikPredmet")
 	@JsonProperty("nastavnikPredmet")
