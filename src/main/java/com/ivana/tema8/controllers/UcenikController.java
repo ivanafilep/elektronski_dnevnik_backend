@@ -37,19 +37,17 @@ import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 import com.ivana.tema8.security.Views;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
-import com.ivana.tema8.services.UcenikService;
+import com.ivana.tema8.services.UcenikServiceImpl;
 
 
 @RestController
 @RequestMapping(path = "api/v1/ucenik")
 public class UcenikController {
-	
+
 	@Autowired
 	private UcenikRepository ucenikRepository;
-	
 	@Autowired
 	private RoleRepository roleRepository;
-	
 	@Autowired
 	private RoditeljRepository roditeljRepository;
 	@Autowired
@@ -59,21 +57,122 @@ public class UcenikController {
 	@Autowired
 	private OcenaRepository ocenaRepository;
 	@Autowired
-	private UcenikService ucenikService;
-	
-	
-	
+	private UcenikServiceImpl ucenikService;
+
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
-	
-	//ADMIN RADI OVO
+
+	// ADMIN RADI OVO
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all ucenici");
 		return new ResponseEntity<Iterable<Ucenik>>(ucenikRepository.findAll(), HttpStatus.OK);
 	}
-	 
+
+	// ADMIN RADI OVO
+	// REGISTRACIJA UCENIKA
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<?> addNewUcenik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
+		return ucenikService.addNewUcenik(newUser, result);
+	}
+
+	// ADMIN RADI OVO
+	// UPDATE UCENIKA
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedUcenik,
+			BindingResult result) {
+		return ucenikService.updateUcenik(id, updatedUcenik, result);
+	}
+
+	// ADMIN MOZE OVO
+	// BRISANJE UCENIKA
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+	public ResponseEntity<?> deleteUcenik(@PathVariable Integer id) {
+		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
+		if (ucenik.isEmpty()) {
+			logger.warn("Zahtev sa brisanje ucenika sa nepostojecim ID {}", id);
+			return new ResponseEntity<>("Ucenik sa zatrazenim ID- jem ne postoji.", HttpStatus.NOT_FOUND);
+		} else {
+			ucenikService.obrisiOceneUcenika(id);
+			ucenikService.obrisiUcenika(id);
+			logger.info("DELETE zahtev za brisanje ucenika sa ID {}", id);
+			return new ResponseEntity<>("Ucenik je uspesno obrisan", HttpStatus.OK);
+		}
+	}
+
+	// ADMIN RADI OVO
+	// DODELA RODITELJA UCENIKU
+	@RequestMapping(method = RequestMethod.PUT, path = "/ucenik/{ucenikId}/roditelj/{roditeljId}")
+	public ResponseEntity<?> dodeliRoditeljaUceniku(@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
+		return ucenikService.dodeliRoditeljaUceniku(ucenikId, roditeljId);
+	}
+
+	// PRETRAGA PO ID
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	public ResponseEntity<?> getUcenikById(@PathVariable Integer id) {
+		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
+
+		if (!ucenik.isPresent()) {
+			logger.warn("Nije pronadjen ucenik sa ID: {}", id);
+			return new ResponseEntity<>("Ucenik nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Ucenik sa ID: {} je uspesno pronadjen", id);
+		return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
+	}
+
+	// PRETRAGA PO IMENU UCENIKA
+	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
+	public ResponseEntity<?> getUcenikByName(@RequestParam String ime) {
+		Optional<Ucenik> ucenik = ucenikRepository.findByIme(ime);
+
+		if (!ucenik.isPresent()) {
+			logger.warn("Nije pronadjen ucenik sa imenom: {}", ime);
+			return new ResponseEntity<>("Ucenik nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		logger.info("Ucenik sa imenom: {} je uspesno pronadjen", ime);
+		return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
+	}
+
+	// nadji ucenika po id-u roditelja
+	@RequestMapping(method = RequestMethod.GET, path = "/roditelj/{roditeljId}")
+	public ResponseEntity<?> getUceniciByRoditeljId(@PathVariable Integer roditeljId) {
+		Optional<Roditelj> roditelj = roditeljRepository.findById(roditeljId);
+		if (!roditelj.isPresent()) {
+			logger.warn("Nije pronadjen roditelj sa ID: {}", roditeljId);
+			return new ResponseEntity<>("Roditelj nije pronadjen", HttpStatus.NOT_FOUND);
+		}
+		List<Ucenik> ucenici = roditelj.get().getDete();
+		logger.info("Ucenik sa ID roditelja: {} je uspesno pronadjen", roditeljId);
+		return new ResponseEntity<>(ucenici, HttpStatus.OK);
+	}
+
+	// nadji ucenike ciji se roditelj zove nekako
+	@RequestMapping(method = RequestMethod.GET, path = "/roditelj")
+	public ResponseEntity<?> getUceniciByImeRoditelja(@RequestParam String imeRoditelja) {
+		Optional<Roditelj> roditelj = roditeljRepository.findByIme(imeRoditelja);
+		if (roditelj.isEmpty()) {
+			logger.warn("Nije pronadjen ucenik sa imenom roditelja: {}", imeRoditelja);
+			return new ResponseEntity<>("Roditelj nije pronađen", HttpStatus.NOT_FOUND);
+		}
+
+		List<Ucenik> ucenici = roditelj.get().getDete();
+		logger.info("Ucenik sa imenom roditelja: {} je uspesno pronadjen", imeRoditelja);
+		return new ResponseEntity<>(ucenici, HttpStatus.OK);
+	}
+
+	// DODELA NASTAVNIKPREDMET UCENIKU
+	@RequestMapping(method = RequestMethod.PUT, path = "/{ucenikId}/nastavnikPredmet/{nastavnikPredmetId}")
+	public ResponseEntity<?> dodeliNastavnikPredmetUceniku(@PathVariable Integer ucenikId,
+			@PathVariable Integer nastavnikPredmetId) {
+		return ucenikService.dodeliNastavnikPredmetUceniku(ucenikId, nastavnikPredmetId);
+	}
+
+	private String createErrorMessage(BindingResult result) {
+		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
+
+	}
 	
-	//ADMIN MOZE OVO
+	
+	/*
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewUcenik (@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Ucenik newUcenik = new Ucenik();
@@ -105,29 +204,6 @@ public class UcenikController {
 		return new ResponseEntity<>(newUcenik, HttpStatus.CREATED);
 	}
 	
-	private String createErrorMessage(BindingResult result) {
-		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
-
-	}
-	
-	//ADMIN MOZE OVO
-	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-	public ResponseEntity<?> deleteUcenik (@PathVariable Integer id) {
-	    Optional<Ucenik> ucenik = ucenikRepository.findById(id);
-	    if (ucenik.isEmpty()) {
-	        logger.warn("Zahtev sa brisanje ucenika sa nepostojecim ID {}", id);
-	        return new ResponseEntity<>("Ucenik sa zatrazenim ID- jem ne postoji.", HttpStatus.NOT_FOUND);
-	    } else {
-	        ucenikService.obrisiOceneUcenika(id);
-	        ucenikService.obrisiUcenika(id);
-	        logger.info("DELETE zahtev za brisanje ucenika sa ID {}", id);
-	        return new ResponseEntity<>("Ucenik je uspesno obrisan", HttpStatus.OK);
-	    }			
-	}
-
-	
-	
-	// ADMIN MOZE OVO
 	
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedUcenik, BindingResult result) {
@@ -153,33 +229,6 @@ public class UcenikController {
 	}
 	
 	
-	
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public ResponseEntity<?> getUcenikById (@PathVariable Integer id) {
-		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
-		
-		if (!ucenik.isPresent()) {
-	        logger.warn("Nije pronadjen ucenik sa ID: {}", id);
-	        return new ResponseEntity<>("Ucenik nije pronadjen", HttpStatus.NOT_FOUND);
-	    }
-		logger.info("Ucenik sa ID: {} je uspesno pronadjen", id);
-	    return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
-	}
-		
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
-	public ResponseEntity<?> getUcenikByName (@RequestParam String ime) {
-		Optional<Ucenik> ucenik = ucenikRepository.findByIme(ime);
-		
-		if (!ucenik.isPresent()) {
-			logger.warn("Nije pronadjen ucenik sa imenom: {}", ime);
-	        return new ResponseEntity<>("Ucenik nije pronadjen", HttpStatus.NOT_FOUND);
-	    }
-		logger.info("Ucenik sa imenom: {} je uspesno pronadjen", ime);
-	    return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
-	}
-	
 	// dodela roditelja uceniku
 	@RequestMapping(method = RequestMethod.PUT, path = "/ucenik/{ucenikId}/roditelj/{roditeljId}")
 	public ResponseEntity<?> dodeliRoditeljaUceniku (@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
@@ -197,33 +246,6 @@ public class UcenikController {
 		return new ResponseEntity<>("Roditelj je uspešno dodeljen uceniku", HttpStatus.OK);
 	}
 	
-	// nadji ucenika po id-u roditelja
-	@RequestMapping(method = RequestMethod.GET, path = "/roditelj/{roditeljId}")
-	public ResponseEntity<?> getUceniciByRoditeljId(@PathVariable Integer roditeljId) {
-	    Optional<Roditelj> roditelj = roditeljRepository.findById(roditeljId);
-	    if (!roditelj.isPresent()) {
-	    	logger.warn("Nije pronadjen roditelj sa ID: {}", roditeljId);
-	        return new ResponseEntity<>("Roditelj nije pronadjen", HttpStatus.NOT_FOUND);
-	    }
-	    List<Ucenik> ucenici = roditelj.get().getDete();
-	    logger.info("Ucenik sa ID roditelja: {} je uspesno pronadjen", roditeljId);
-	    return new ResponseEntity<>(ucenici, HttpStatus.OK);
-	}
-	
-	//nadji ucenike ciji se roditelj zove nekako
-	@RequestMapping(method = RequestMethod.GET, path = "/roditelj")
-	public ResponseEntity<?> getUceniciByImeRoditelja(@RequestParam String imeRoditelja) {
-	   Optional<Roditelj> roditelj = roditeljRepository.findByIme(imeRoditelja);
-	    if (roditelj.isEmpty()) {
-	    	logger.warn("Nije pronadjen ucenik sa imenom roditelja: {}", imeRoditelja);
-	        return new ResponseEntity<>("Roditelj nije pronađen", HttpStatus.NOT_FOUND);
-	    }
-	    
-	    List<Ucenik> ucenici = roditelj.get().getDete();
-	    logger.info("Ucenik sa imenom roditelja: {} je uspesno pronadjen", imeRoditelja);
-	    return new ResponseEntity<>(ucenici, HttpStatus.OK);
-	}
-
 
 	//dodaj nastavnik predmet
 	@RequestMapping(method = RequestMethod.PUT, path = "/{ucenikId}/nastavnikPredmet/{nastavnikPredmetId}")
@@ -242,6 +264,7 @@ public class UcenikController {
 		}
 
 	}
+	*/
 
 
 
