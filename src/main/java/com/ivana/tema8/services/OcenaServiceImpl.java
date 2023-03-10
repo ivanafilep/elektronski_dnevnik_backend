@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -23,12 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ivana.tema8.dto.EmailDTO;
+import com.ivana.tema8.entities.Korisnik;
 import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Polugodiste;
 import com.ivana.tema8.entities.Predmet;
 import com.ivana.tema8.entities.Ucenik;
+import com.ivana.tema8.repositories.KorisnikRepository;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PolugodisteRepository;
@@ -52,15 +55,22 @@ public class OcenaServiceImpl implements OcenaService {
 	private PolugodisteRepository polugodisteRepository;
 	@Autowired
 	private EmailServiceImpl emailService;
+	@Autowired
+	private KorisnikRepository korisnikRepository;
 
 	@Override
-	public ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta) {
+	public ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta, Authentication authentication) {
+
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+		
 		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o JOIN o.nastavnikPredmet np " + "JOIN np.predmet p "
 				+ "WHERE p.nazivPredmeta = :nazivPredmeta ";
 		Query query = em.createQuery(hql);
 		query.setParameter("nazivPredmeta", nazivPredmeta);
 		List<Ocena> rezultat = query.getResultList();
-		
+
 		if (rezultat.isEmpty()) {
 			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
 		}
@@ -68,7 +78,14 @@ public class OcenaServiceImpl implements OcenaService {
 	}
 
 	@Override
-	public ResponseEntity<?> findOcenaByIme(String ime) {
+	public ResponseEntity<?> findOcenaByIme(String ime, Authentication authentication) {
+		
+		String email = (String) authentication.getName();
+		
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+		
+		
+
 		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o " + "INNER JOIN o.ucenik u "
 				+ "WHERE u.ime = :imeUcenika";
 		Query query = em.createQuery(hql);
@@ -76,20 +93,25 @@ public class OcenaServiceImpl implements OcenaService {
 		List<Ocena> rezultat =  query.getResultList();
 		
 		if (rezultat.isEmpty()) {
-			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Ucenik ne postoji.", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
+
 	@Override
-	public ResponseEntity<?> findOcenaByImePredmet(String ime) {
+	public ResponseEntity<?> findOcenaByImePredmet(String ime, Authentication authentication) {
+		
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
 		String hql = "SELECT o.vrednostOcene, p.nazivPredmeta " + "FROM Ocena o " + "JOIN o.ucenik u "
 				+ "JOIN o.nastavnikPredmet np " + "JOIN np.predmet p " + "WHERE u.ime = :ime ";
 
 		Query query = em.createQuery(hql);
 		query.setParameter("ime", ime);
-		List<Ocena> rezultat =  query.getResultList();
-		
+		List<Ocena> rezultat = query.getResultList();
+
 		if (rezultat.isEmpty()) {
 			return new ResponseEntity<>("Ucenik ne postoji.", HttpStatus.BAD_REQUEST);
 		}
@@ -97,25 +119,20 @@ public class OcenaServiceImpl implements OcenaService {
 	}
 	
 	// nalazi ocene po imenu ucenika i imenu predmeta
-	public ResponseEntity<?> findByPredmetIIme(String ime, String nazivPredmeta) {
-		logger.info("100");
-		NastavnikPredmet np = new NastavnikPredmet();
-		logger.info("102");
-		logger.info("103=", np.getNastavnik().getId());
-		logger.info("104=", np.getPredmet().getId());
-		if(np.getPredmet().getId() != np.getNastavnik().getId()) {
-			logger.info("104");
-			return new ResponseEntity<>("Profesor " + np.getNastavnik().getId() + np.getNastavnik().getIme() + " ne predaje predmet " + np.getPredmet().getId() + np.getPredmet().getNazivPredmeta(), HttpStatus.I_AM_A_TEAPOT);
-		}
-		logger.info("107");
+	public ResponseEntity<?> findByPredmetIIme(String ime, String nazivPredmeta, Authentication authentication) {
+
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+
 		String hql = "SELECT o.vrednostOcene, p.nazivPredmeta " + "FROM Ocena o " + "INNER JOIN o.ucenik u "
 				+ "INNER JOIN o.nastavnikPredmet np " + "INNER JOIN np.predmet p "
 				+ "WHERE u.ime = :ime AND p.nazivPredmeta = :nazivPredmeta ";
 		Query query = em.createQuery(hql);
 		query.setParameter("ime", ime);
 		query.setParameter("nazivPredmeta", nazivPredmeta);
-		List<Ocena> rezultat  = query.getResultList();
-		
+		List<Ocena> rezultat = query.getResultList();
+
 		if (rezultat.isEmpty()) {
 			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
 		}
@@ -124,8 +141,12 @@ public class OcenaServiceImpl implements OcenaService {
 
 	// UPDATE OCENA
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
-			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
+			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId, Authentication authentication) {
 		Optional<Ocena> ocenaOptional = ocenaRepository.findById(id);
+
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
 
 		if (!ocenaOptional.isPresent()) {
 			return new ResponseEntity<>("Ocena nije pronadjena", HttpStatus.BAD_REQUEST);
@@ -150,7 +171,13 @@ public class OcenaServiceImpl implements OcenaService {
 
 	//DAVANJE OCENE
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
-			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
+			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId, Authentication authentication) {
+
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+		
+		
 
 		Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(nastavnikPredmetId);
 		Optional<Ucenik> ucenik = ucenikRepository.findById(ucenikId);
@@ -161,27 +188,11 @@ public class OcenaServiceImpl implements OcenaService {
 			return new ResponseEntity<>("NastavnikPredmet, ucenik ili polugodište nisu pronađeni",
 					HttpStatus.NOT_FOUND);
 		}
-		
 
 		if (vrednostOcene > 5 || vrednostOcene < 1) {
 			return new ResponseEntity<>("Ocena mora biti izmedju 1 i 5.", HttpStatus.NOT_FOUND);
 		}
 
-		/*
-		if (nastavnikPredmet.get().getNastavnik().getId() != 73) {
-			logger.info("nastavnikPredmet.get().getNastavnik().getId(): {}", nastavnikPredmet.get().getNastavnik().getId());
-			logger.info("nastavnikPredmetId: {}", nastavnikPredmetId);
-			return new ResponseEntity<>("Niste ovlašćeni da dajete ocenu za ovaj predmet", HttpStatus.UNAUTHORIZED);
-		}
-
-
-		logger.info("------nastavnikPredmet.get().getNastavnik().getId(): {}", nastavnikPredmet.get().getNastavnik().getId());
-		logger.info("nastavnikPredmetId: {}", nastavnikPredmetId);
-		/*
-		if (!nastavnikPredmet.get().getPredmet().getNastavnikPredmet().contains(ucenik.get())) {
-			return new ResponseEntity<>("Učenik nije pohađao ovaj predmet", HttpStatus.UNAUTHORIZED);
-		}
-		*/
 		Ocena ocena = new Ocena();
 		ocena.setVrednostOcene(vrednostOcene);
 		ocena.setNastavnikPredmet(nastavnikPredmet.get());
@@ -208,8 +219,12 @@ public class OcenaServiceImpl implements OcenaService {
 	}
 
 	// OBRISI OCENU
-	public ResponseEntity<?> deleteOcena(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteOcena(@PathVariable Integer id, Authentication authentication) {
 		Optional<Ocena> ocena = ocenaRepository.findById(id);
+		String email = (String) authentication.getName();
+
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+
 		if (ocena.isEmpty()) {
 			logger.warn("Zahtev sa brisanje ocene sa nepostojecim ID {}", id);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

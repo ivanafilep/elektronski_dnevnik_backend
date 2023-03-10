@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,29 +64,29 @@ public class OcenaController {
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
-			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
-		return ocenaService.updateOcena(id, vrednostOcene, nastavnikId, predmetId);
+			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId, Authentication authentication) {
+		return ocenaService.updateOcena(id, vrednostOcene, nastavnikId, predmetId, authentication);
 	}
 
 	// CREATE OCENA
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.POST, path = "/{vrednostOcene}/{nastavnikPredmetId}/{ucenikId}/{polugodisteId}")
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
-			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
-		return ocenaService.createOcena(vrednostOcene, nastavnikPredmetId, ucenikId, polugodisteId);
+			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId, Authentication authentication) {
+		return ocenaService.createOcena(vrednostOcene, nastavnikPredmetId, ucenikId, polugodisteId, authentication);
 	}
 
 	// OBRISI OCENU
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-	public ResponseEntity<?> deleteOcena(@PathVariable Integer id) {
-		return ocenaService.deleteOcena(id);
+	public ResponseEntity<?> deleteOcena(@PathVariable Integer id, Authentication authentication) {
+		return ocenaService.deleteOcena(id, authentication);
 	}
 
 	// PRETRAGA OCENE PO ID-U
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public ResponseEntity<?> getOcenaById(@PathVariable Integer id) {
+	public ResponseEntity<?> getOcenaById(@PathVariable Integer id, Authentication authentication) {
 		Optional<Ocena> ocena = ocenaRepository.findById(id);
 
 		if (!ocena.isPresent()) {
@@ -99,34 +100,34 @@ public class OcenaController {
 	// pretraga ocena po predmetu 
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet")
-	public ResponseEntity<?> findOcenaByPredmet(@RequestParam String nazivPredmeta) {
+	public ResponseEntity<?> findOcenaByPredmet(@RequestParam String nazivPredmeta, Authentication authentication) {
 		logger.info("Ocene iz predmeta: {} su uspesno pronadjene", nazivPredmeta);
-		return ocenaService.findOcenaByPredmet(nazivPredmeta);
+		return ocenaService.findOcenaByPredmet(nazivPredmeta, authentication);
 	}
 
 	// pretraga ocena po imenu ucenika 
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ"})
 	@RequestMapping(method = RequestMethod.GET, path = "/ime")
-	public ResponseEntity<?> findOcenaByIme(@RequestParam String ime) {
+	public ResponseEntity<?> findOcenaByIme(@RequestParam String ime, Authentication authentication) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
-		return ocenaService.findOcenaByIme(ime);
+		return ocenaService.findOcenaByIme(ime, authentication);
 	}
 
 	// pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imePredmet")
-	public ResponseEntity<?> findOcenaByImePredmet(@RequestParam String ime) {
+	public ResponseEntity<?> findOcenaByImePredmet(@RequestParam String ime, Authentication authentication) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
-		return ocenaService.findOcenaByImePredmet(ime);
+		return ocenaService.findOcenaByImePredmet(ime, authentication);
 	}
 
 	// TAKODJE KAO PRETHODNO SVE
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imeIPredmet")
 	public ResponseEntity<?> findOcenaByPredmetIIme(@RequestParam String ime,
-			@RequestParam String nazivPredmeta) {
+			@RequestParam String nazivPredmeta, Authentication authentication) {
 		logger.info("Ocene od ucenika sa imenom: {}, iz predmeta: {} su uspesno pronadjene", ime, nazivPredmeta);
-		return ocenaService.findByPredmetIIme(ime, nazivPredmeta);
+		return ocenaService.findByPredmetIIme(ime, nazivPredmeta, authentication);
 	}
 
 	private String createErrorMessage(BindingResult result) {
