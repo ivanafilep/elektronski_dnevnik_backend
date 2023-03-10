@@ -55,7 +55,7 @@ public class RoditeljController {
 	}
 
 	
-	// REGISTRACIJA RODITELJA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewRoditelj(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
@@ -63,7 +63,7 @@ public class RoditeljController {
 	}
 
 	
-	// UPDATE RODITELJA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateRoditelj(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedRoditelj,
@@ -72,14 +72,14 @@ public class RoditeljController {
 	}
 
 	
-	// BRISANJE RODITELJA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteRoditelj(@PathVariable Integer id) {
 		return roditeljService.deleteRoditelj(id);
 	}
 
-	// NADJI RODITELJA PO ID
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getRoditeljkById(@PathVariable Integer id) {
@@ -93,7 +93,7 @@ public class RoditeljController {
 		return new ResponseEntity<>(roditelj.get(), HttpStatus.OK);
 	}
 
-	// NADJI RODITELJA PO IMENU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getRoditeljByName(@RequestParam String ime) {
@@ -107,7 +107,7 @@ public class RoditeljController {
 		return new ResponseEntity<>(roditelj.get(), HttpStatus.OK);
 	}
 
-	// nadji roditelja po id-u ucenika
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/ucenik/{id}")
 	public ResponseEntity<?> getUcenikById(@PathVariable Integer id) {
@@ -121,7 +121,7 @@ public class RoditeljController {
 		}
 	}
 
-	// nadji roditelje cije se dete zove nekako
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/ucenik")
 	public ResponseEntity<?> getRoditeljByImeUcenika(@RequestParam String imeUcenika) {

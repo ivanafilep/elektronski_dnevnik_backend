@@ -30,9 +30,11 @@ import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Polugodiste;
 import com.ivana.tema8.entities.Predmet;
+import com.ivana.tema8.entities.Roditelj;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.KorisnikRepository;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
+import com.ivana.tema8.repositories.NastavnikRepository;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PolugodisteRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
@@ -57,6 +59,8 @@ public class OcenaServiceImpl implements OcenaService {
 	private EmailServiceImpl emailService;
 	@Autowired
 	private KorisnikRepository korisnikRepository;
+	@Autowired
+	private NastavnikRepository nastavnikRepository;
 
 	@Override
 	public ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta, Authentication authentication) {
@@ -74,7 +78,27 @@ public class OcenaServiceImpl implements OcenaService {
 		if (rezultat.isEmpty()) {
 			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
+		
+		
+		if (ulogovanKorisnik.getRole().getIme().equals("ROLE_NASTAVNIK") ) {
+			Nastavnik ulogovanNastavnik = (Nastavnik) ulogovanKorisnik;
+			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
+		} else if (ulogovanKorisnik.getRole().getIme().equals("ROLE_UCENIK") ) {
+			Ucenik ulogovanUcenik = (Ucenik) ulogovanKorisnik; 
+			boolean ispravanPredmet = false;
+			for (NastavnikPredmet ucenikovPredmet : ulogovanUcenik.getNastavnikPredmet()) {
+				if (ucenikovPredmet.getPredmet().getNazivPredmeta().equals(nazivPredmeta)) {
+					ispravanPredmet = true;
+				}
+			}
+			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
+			
+		} else if (!ulogovanKorisnik.getRole().getIme().equals("ROLE_ADMIN") ) {
+			
+			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
+		}  else {
+			return new ResponseEntity<>("Ulogovan korisnik nema pravo pristupa.", HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	@Override
@@ -118,7 +142,7 @@ public class OcenaServiceImpl implements OcenaService {
 		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 	
-	// nalazi ocene po imenu ucenika i imenu predmeta
+	
 	public ResponseEntity<?> findByPredmetIIme(String ime, String nazivPredmeta, Authentication authentication) {
 
 		String email = (String) authentication.getName();
@@ -139,7 +163,7 @@ public class OcenaServiceImpl implements OcenaService {
 		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
-	// UPDATE OCENA
+	
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
 			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId, Authentication authentication) {
 		Optional<Ocena> ocenaOptional = ocenaRepository.findById(id);
@@ -169,26 +193,51 @@ public class OcenaServiceImpl implements OcenaService {
 		return new ResponseEntity<>("Ocena je uspesno azurirana.", HttpStatus.OK);
 	}
 
-	//DAVANJE OCENE
+	
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
 			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId, Authentication authentication) {
-
-		String email = (String) authentication.getName();
-
-		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
-		
-		
 
 		Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(nastavnikPredmetId);
 		Optional<Ucenik> ucenik = ucenikRepository.findById(ucenikId);
 		Optional<Polugodiste> polugodiste = polugodisteRepository.findById(polugodisteId);
-
 		
 		if (!nastavnikPredmet.isPresent() || !ucenik.isPresent() || !polugodiste.isPresent()) {
 			return new ResponseEntity<>("NastavnikPredmet, ucenik ili polugodište nisu pronađeni",
 					HttpStatus.NOT_FOUND);
 		}
+		
+		String email = (String) authentication.getName();
 
+		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
+		
+		if (ulogovanKorisnik.getRole().getIme().equals("ROLE_ADMIN") ) {
+			logger.info("Admin se ulogovao.");
+		} else if (ulogovanKorisnik.getRole().getIme().equals("ROLE_NASTAVNIK") ) {
+			Nastavnik ulogovanNastavnik = (Nastavnik) ulogovanKorisnik; 
+			boolean ispravanNastavnik = false;
+			boolean ispravanUcenik = false;
+			for (NastavnikPredmet nastavnikovPredmet : ulogovanNastavnik.getNastavnikPredmet()) {
+				if (nastavnikovPredmet.getId().equals(nastavnikPredmet.get().getId())) {
+					ispravanNastavnik = true;
+					break;
+				}
+			}
+			for (NastavnikPredmet ucenikovPredmet : ucenik.get().getNastavnikPredmet()) {
+				if (ucenikovPredmet.getId().equals(nastavnikPredmet.get().getId())) {
+					ispravanUcenik = true;
+					break;
+				}
+			} 
+			
+			if (!ispravanNastavnik || !ispravanUcenik) {
+				logger.info("Ne moze, Vi ste " + ulogovanNastavnik.getIme());
+				return new ResponseEntity<>("Niste ovlasceni da date ocenu za ovaj predmet.", HttpStatus.UNAUTHORIZED);
+			}
+		} else {
+			return new ResponseEntity<>("Niste ovlasceni da date ocenu za ovaj predmet.", HttpStatus.UNAUTHORIZED);
+		}
+		
+	
 		if (vrednostOcene > 5 || vrednostOcene < 1) {
 			return new ResponseEntity<>("Ocena mora biti izmedju 1 i 5.", HttpStatus.NOT_FOUND);
 		}
@@ -203,7 +252,7 @@ public class OcenaServiceImpl implements OcenaService {
 		ocenaRepository.save(ocena);
 
 		EmailDTO emailDTO = new EmailDTO();
-		emailDTO.setTo("filepivana95@gmail.com");
+		emailDTO.setTo(ocena.getUcenik().getRoditelj().getEmail());
 		emailDTO.setSubject("Nova ocena");
 
 		emailDTO.setText("Vaše dete " + ocena.getUcenik().getIme() + " " + ocena.getUcenik().getPrezime()
@@ -218,7 +267,7 @@ public class OcenaServiceImpl implements OcenaService {
 		return new ResponseEntity<>("Ocena je uspešno dodata", HttpStatus.OK);
 	}
 
-	// OBRISI OCENU
+	
 	public ResponseEntity<?> deleteOcena(@PathVariable Integer id, Authentication authentication) {
 		Optional<Ocena> ocena = ocenaRepository.findById(id);
 		String email = (String) authentication.getName();

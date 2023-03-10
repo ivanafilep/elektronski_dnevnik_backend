@@ -33,8 +33,7 @@ public class RoditeljServiceImpl implements RoditeljService {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	
-	// REGISTRACIJA RODITELJA
+
 	public ResponseEntity<?> addNewRoditelj(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Roditelj newRoditelj = new Roditelj();
 		RoleEntity roleEntity = roleRepository.findById(4).orElse(null);
@@ -64,7 +63,7 @@ public class RoditeljServiceImpl implements RoditeljService {
 		return new ResponseEntity<>(newRoditelj, HttpStatus.CREATED);
 	}
 
-	// UPDATE RODITELJA
+	
 	public ResponseEntity<?> updateRoditelj(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedRoditelj,
 			BindingResult result) {
 		logger.info("Pokušaj izmene roditelja sa id-jem {}", id);
@@ -87,7 +86,7 @@ public class RoditeljServiceImpl implements RoditeljService {
 		return new ResponseEntity<>(roditelj, HttpStatus.OK);
 	}
 
-	// BRISANJE RODITELJA
+	
 	public ResponseEntity<?> deleteRoditelj(@PathVariable Integer id) {
 		Optional<Roditelj> roditelj = roditeljRepository.findById(id);
 		if (roditelj.isEmpty()) {

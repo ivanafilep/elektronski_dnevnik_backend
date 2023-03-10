@@ -40,7 +40,7 @@ public class NastavnikServiceImpl implements NastavnikPredmetService {
 	
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 	
-	//REGISTRACIJA NASTAVNIKA
+	
 	public ResponseEntity<?> addNewNastavnik (@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Nastavnik newNastavnik = new Nastavnik();
 		RoleEntity roleEntity = roleRepository.findById(3).orElse(null);
@@ -71,7 +71,7 @@ public class NastavnikServiceImpl implements NastavnikPredmetService {
 		return new ResponseEntity<>(newNastavnik, HttpStatus.CREATED);
 	}
 	
-	//UPDATE NASTAVNIK
+	
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedNastavnik, BindingResult result) {
 		logger.info("Pokušaj izmene nastavnika sa id-jem {}", id);
 		Nastavnik nastavnik = nastavnikRepository.findById(id).get();
@@ -94,7 +94,7 @@ public class NastavnikServiceImpl implements NastavnikPredmetService {
 		return new ResponseEntity<>(nastavnik, HttpStatus.OK);
 	}
 	
-	//DELETE NASTAVNIK
+	
 	public ResponseEntity<?> deleteNastavnik (@PathVariable Integer id) {
 	    Optional<Nastavnik> nastavnik = nastavnikRepository.findById(id);
 	    if (nastavnik.isEmpty()) {

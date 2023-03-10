@@ -47,7 +47,7 @@ public class PolugodisteController {
 		return new ResponseEntity<Iterable<Polugodiste>>(polugodisteRepository.findAll(), HttpStatus.OK);
 	}
 
-	// CREATE POLUGODISTE
+
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST, path = "/novoPolugodiste")
 	public ResponseEntity<?> addNewPolugodiste(@Valid @RequestBody PolugodisteDTO novoPolugodiste,
@@ -55,14 +55,14 @@ public class PolugodisteController {
 		return polugodisteService.addNewPolugodiste(novoPolugodiste, result);
 	}
 	
-	//UPDATE
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
 		return polugodisteService.updatePolugodiste(id, updatedPolugodiste, result);
 	}
 
-	// DELETE POLUGODISTE
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePolugodiste(@PathVariable Integer id) {

@@ -34,7 +34,7 @@ public class NastavnikPredmetServiceImpl implements NastavnikPredmetService {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	// DODELA PREDMETA NASTAVNIKU
+	
 	public ResponseEntity<?> dodeliPredmetNastavniku(@PathVariable Integer nastavnikId, @PathVariable Integer predmetId,
 			@PathVariable Integer razred) {
 
@@ -56,7 +56,7 @@ public class NastavnikPredmetServiceImpl implements NastavnikPredmetService {
 		return new ResponseEntity<>("Predmet je uspešno dodeljen nastavniku", HttpStatus.OK);
 	}
 
-	// BRISANJE
+	
 	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {
 		Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(id);
 		if (!nastavnikPredmet.isPresent()) {

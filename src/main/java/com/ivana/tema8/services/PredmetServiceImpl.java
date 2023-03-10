@@ -35,7 +35,7 @@ public class PredmetServiceImpl implements PredmetService {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	// CREATE PREDMETA
+	
 	public ResponseEntity<?> addNewUPredmet(@Valid @RequestBody PredmetDTO newPredmet, BindingResult result) {
 		Predmet newPredmet1 = new Predmet();
 
@@ -54,7 +54,7 @@ public class PredmetServiceImpl implements PredmetService {
 		return new ResponseEntity<>(newPredmet1, HttpStatus.CREATED);
 	}
 
-	// UPDATE PREDMET
+	
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet,
 			BindingResult result) {
@@ -75,7 +75,7 @@ public class PredmetServiceImpl implements PredmetService {
 		return new ResponseEntity<>(predmet, HttpStatus.OK);
 	}
 
-	// DELETE PREDMET
+	
 	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {
 		Optional<Predmet> predmet = predmetRepository.findById(id);
 		if (predmet.isEmpty()) {

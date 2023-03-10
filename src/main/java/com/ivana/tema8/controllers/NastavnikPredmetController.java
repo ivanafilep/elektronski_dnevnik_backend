@@ -49,7 +49,7 @@ public class NastavnikPredmetController {
 		return new ResponseEntity<Iterable<NastavnikPredmet>>(nastavnikPredmetRepository.findAll(), HttpStatus.OK);
 	}
 
-	// DODELI PREDMET NASTAVNIKU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/nastavnik/{nastavnikId}/predmet/{predmetId}/{razred}")
 	public ResponseEntity<?> dodeliPredmetNastavniku(@PathVariable Integer nastavnikId, @PathVariable Integer predmetId,
@@ -57,7 +57,7 @@ public class NastavnikPredmetController {
 		return nastavnikPredmetService.dodeliPredmetNastavniku(nastavnikId, predmetId, razred);
 	}
 
-	// OBRISI
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {

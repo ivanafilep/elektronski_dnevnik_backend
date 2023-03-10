@@ -34,7 +34,7 @@ public class PolugodisteServiceImpl implements PolugodisteService {
 	
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	//CREATE 
+	
 	public ResponseEntity<?> addNewPolugodiste (@Valid @RequestBody PolugodisteDTO novoPolugodiste, BindingResult result) {
 		Polugodiste newPolugodiste = new Polugodiste();
 		
@@ -52,7 +52,7 @@ public class PolugodisteServiceImpl implements PolugodisteService {
 		return new ResponseEntity<>(newPolugodiste, HttpStatus.OK);
 	}
 	
-	//UPDATE POL
+	
 	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
 		logger.info("Pokušaj izmene polugodista sa id-jem {}", id);
 		Polugodiste polugodiste = polugodisteRepository.findById(id).get();
@@ -70,7 +70,7 @@ public class PolugodisteServiceImpl implements PolugodisteService {
 		return new ResponseEntity<>(polugodiste, HttpStatus.OK);
 	}
 	
-	//DELETE
+	
 	public ResponseEntity<?> deletePolugodiste (@PathVariable Integer id) {
 		Optional<Polugodiste> polugodiste = polugodisteRepository.findById(id);
 			if (polugodiste.isEmpty()) {
