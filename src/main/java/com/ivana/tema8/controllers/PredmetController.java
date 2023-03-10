@@ -69,7 +69,7 @@ public class PredmetController {
 		return predmetService.updatePredmet(id, updatedPredmet, result);
 	}
 
-	// DELETE PREDMT
+	// DELETE PREDMET
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {

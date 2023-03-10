@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ivana.tema8.dto.EmailDTO;
+import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Polugodiste;
@@ -93,8 +95,19 @@ public class OcenaServiceImpl implements OcenaService {
 		}
 		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
-
+	
+	// nalazi ocene po imenu ucenika i imenu predmeta
 	public ResponseEntity<?> findByPredmetIIme(String ime, String nazivPredmeta) {
+		logger.info("100");
+		NastavnikPredmet np = new NastavnikPredmet();
+		logger.info("102");
+		logger.info("103=", np.getNastavnik().getId());
+		logger.info("104=", np.getPredmet().getId());
+		if(np.getPredmet().getId() != np.getNastavnik().getId()) {
+			logger.info("104");
+			return new ResponseEntity<>("Profesor " + np.getNastavnik().getId() + np.getNastavnik().getIme() + " ne predaje predmet " + np.getPredmet().getId() + np.getPredmet().getNazivPredmeta(), HttpStatus.I_AM_A_TEAPOT);
+		}
+		logger.info("107");
 		String hql = "SELECT o.vrednostOcene, p.nazivPredmeta " + "FROM Ocena o " + "INNER JOIN o.ucenik u "
 				+ "INNER JOIN o.nastavnikPredmet np " + "INNER JOIN np.predmet p "
 				+ "WHERE u.ime = :ime AND p.nazivPredmeta = :nazivPredmeta ";
@@ -135,6 +148,7 @@ public class OcenaServiceImpl implements OcenaService {
 		return new ResponseEntity<>("Ocena je uspesno azurirana.", HttpStatus.OK);
 	}
 
+	//DAVANJE OCENE
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
 			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
 
@@ -142,15 +156,32 @@ public class OcenaServiceImpl implements OcenaService {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(ucenikId);
 		Optional<Polugodiste> polugodiste = polugodisteRepository.findById(polugodisteId);
 
+		
 		if (!nastavnikPredmet.isPresent() || !ucenik.isPresent() || !polugodiste.isPresent()) {
 			return new ResponseEntity<>("NastavnikPredmet, ucenik ili polugodište nisu pronađeni",
 					HttpStatus.NOT_FOUND);
 		}
+		
 
 		if (vrednostOcene > 5 || vrednostOcene < 1) {
 			return new ResponseEntity<>("Ocena mora biti izmedju 1 i 5.", HttpStatus.NOT_FOUND);
 		}
 
+		/*
+		if (nastavnikPredmet.get().getNastavnik().getId() != 73) {
+			logger.info("nastavnikPredmet.get().getNastavnik().getId(): {}", nastavnikPredmet.get().getNastavnik().getId());
+			logger.info("nastavnikPredmetId: {}", nastavnikPredmetId);
+			return new ResponseEntity<>("Niste ovlašćeni da dajete ocenu za ovaj predmet", HttpStatus.UNAUTHORIZED);
+		}
+
+
+		logger.info("------nastavnikPredmet.get().getNastavnik().getId(): {}", nastavnikPredmet.get().getNastavnik().getId());
+		logger.info("nastavnikPredmetId: {}", nastavnikPredmetId);
+		/*
+		if (!nastavnikPredmet.get().getPredmet().getNastavnikPredmet().contains(ucenik.get())) {
+			return new ResponseEntity<>("Učenik nije pohađao ovaj predmet", HttpStatus.UNAUTHORIZED);
+		}
+		*/
 		Ocena ocena = new Ocena();
 		ocena.setVrednostOcene(vrednostOcene);
 		ocena.setNastavnikPredmet(nastavnikPredmet.get());

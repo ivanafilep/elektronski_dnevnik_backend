@@ -60,7 +60,7 @@ public class OcenaController {
 	}
 
 	// UPDATE OCENA
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
 			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
@@ -68,7 +68,7 @@ public class OcenaController {
 	}
 
 	// CREATE OCENA
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.POST, path = "/{vrednostOcene}/{nastavnikPredmetId}/{ucenikId}/{polugodisteId}")
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
 			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
@@ -76,7 +76,7 @@ public class OcenaController {
 	}
 
 	// OBRISI OCENU
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteOcena(@PathVariable Integer id) {
 		return ocenaService.deleteOcena(id);
@@ -97,7 +97,7 @@ public class OcenaController {
 	}
 
 	// pretraga ocena po predmetu 
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet")
 	public ResponseEntity<?> findOcenaByPredmet(@RequestParam String nazivPredmeta) {
 		logger.info("Ocene iz predmeta: {} su uspesno pronadjene", nazivPredmeta);
@@ -105,7 +105,7 @@ public class OcenaController {
 	}
 
 	// pretraga ocena po imenu ucenika 
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ"})
 	@RequestMapping(method = RequestMethod.GET, path = "/ime")
 	public ResponseEntity<?> findOcenaByIme(@RequestParam String ime) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
@@ -113,7 +113,7 @@ public class OcenaController {
 	}
 
 	// pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imePredmet")
 	public ResponseEntity<?> findOcenaByImePredmet(@RequestParam String ime) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
@@ -121,7 +121,7 @@ public class OcenaController {
 	}
 
 	// TAKODJE KAO PRETHODNO SVE
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imeIPredmet")
 	public ResponseEntity<?> findOcenaByPredmetIIme(@RequestParam String ime,
 			@RequestParam String nazivPredmeta) {
