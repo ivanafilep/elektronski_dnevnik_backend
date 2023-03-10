@@ -20,6 +20,7 @@ public interface NastavnikPredmetRepository extends CrudRepository<NastavnikPred
 	List<NastavnikPredmet> findByNastavnikId(Integer id);
 
 	
+	
 
 
 
