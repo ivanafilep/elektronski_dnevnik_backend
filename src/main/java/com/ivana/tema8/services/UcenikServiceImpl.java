@@ -46,7 +46,7 @@ public class UcenikServiceImpl implements UcenikService {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	// BRISANJE UCENIKA
+	
 	public void obrisiOceneUcenika(Integer id) {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
 		if (ucenik.isPresent()) {
@@ -61,7 +61,7 @@ public class UcenikServiceImpl implements UcenikService {
 		}
 	}
 
-	// REGISTRACIJA UCENIKA
+	
 	public ResponseEntity<?> addNewUcenik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Ucenik newUcenik = new Ucenik();
 		RoleEntity roleEntity = roleRepository.findById(2).orElse(null);
@@ -97,7 +97,7 @@ public class UcenikServiceImpl implements UcenikService {
 
 	}
 
-	// UPDATE UCENIKA
+	
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedUcenik,
 			BindingResult result) {
 		logger.info("Pokušaj izmene učenika sa id-jem {}", id);
@@ -120,7 +120,7 @@ public class UcenikServiceImpl implements UcenikService {
 		return new ResponseEntity<>(ucenik, HttpStatus.OK);
 	}
 
-	// DODELA RODITELJA UCENIKU
+	
 	public ResponseEntity<?> dodeliRoditeljaUceniku(@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
 
 		Ucenik ucenik = ucenikRepository.findById(ucenikId).orElse(null);
@@ -136,7 +136,7 @@ public class UcenikServiceImpl implements UcenikService {
 		return new ResponseEntity<>("Roditelj je uspešno dodeljen uceniku", HttpStatus.OK);
 	}
 
-	// DODELA NASTAVNIKPREDMET UCENIKU
+	
 	public ResponseEntity<?> dodeliNastavnikPredmetUceniku(@PathVariable Integer ucenikId,
 			@PathVariable Integer nastavnikPredmetId) {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(ucenikId);

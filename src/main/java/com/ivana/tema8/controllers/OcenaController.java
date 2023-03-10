@@ -60,7 +60,7 @@ public class OcenaController {
 		return new ResponseEntity<Iterable<Ocena>>(ocenaRepository.findAll(), HttpStatus.OK);
 	}
 
-	// UPDATE OCENA
+	
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
@@ -68,7 +68,7 @@ public class OcenaController {
 		return ocenaService.updateOcena(id, vrednostOcene, nastavnikId, predmetId, authentication);
 	}
 
-	// CREATE OCENA
+	
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.POST, path = "/{vrednostOcene}/{nastavnikPredmetId}/{ucenikId}/{polugodisteId}")
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
@@ -76,14 +76,14 @@ public class OcenaController {
 		return ocenaService.createOcena(vrednostOcene, nastavnikPredmetId, ucenikId, polugodisteId, authentication);
 	}
 
-	// OBRISI OCENU
+	
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteOcena(@PathVariable Integer id, Authentication authentication) {
 		return ocenaService.deleteOcena(id, authentication);
 	}
 
-	// PRETRAGA OCENE PO ID-U
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getOcenaById(@PathVariable Integer id, Authentication authentication) {
@@ -97,7 +97,7 @@ public class OcenaController {
 		return new ResponseEntity<>(ocena.get(), HttpStatus.OK);
 	}
 
-	// pretraga ocena po predmetu 
+	
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet")
 	public ResponseEntity<?> findOcenaByPredmet(@RequestParam String nazivPredmeta, Authentication authentication) {
@@ -105,15 +105,15 @@ public class OcenaController {
 		return ocenaService.findOcenaByPredmet(nazivPredmeta, authentication);
 	}
 
-	// pretraga ocena po imenu ucenika 
-	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ"})
+	
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK","ROLE_UCENIK", "ROLE_RODITELJ"})
 	@RequestMapping(method = RequestMethod.GET, path = "/ime")
 	public ResponseEntity<?> findOcenaByIme(@RequestParam String ime, Authentication authentication) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
 		return ocenaService.findOcenaByIme(ime, authentication);
 	}
 
-	// pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena
+	
 	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_RODITELJ", "ROLE_UCENIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imePredmet")
 	public ResponseEntity<?> findOcenaByImePredmet(@RequestParam String ime, Authentication authentication) {
@@ -121,8 +121,8 @@ public class OcenaController {
 		return ocenaService.findOcenaByImePredmet(ime, authentication);
 	}
 
-	// TAKODJE KAO PRETHODNO SVE
-	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK"})
+	
+	@Secured({"ROLE_ADMIN", "ROLE_NASTAVNIK", "ROLE_UCENIK", "ROLE_RODITELJ"})
 	@RequestMapping(method = RequestMethod.GET, path = "/imeIPredmet")
 	public ResponseEntity<?> findOcenaByPredmetIIme(@RequestParam String ime,
 			@RequestParam String nazivPredmeta, Authentication authentication) {

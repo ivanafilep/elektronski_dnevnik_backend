@@ -63,21 +63,21 @@ public class NastavnikController {
 		return new ResponseEntity<Iterable<Nastavnik>>(nastavnikRepository.findAll(), HttpStatus.OK);
 	}
 
-	// REGISTRACIJA NASTAVNIKA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewNastavnik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		return nastavnikService.addNewNastavnik(newUser, result);
 	}
 
-	// DELETE NASTAVNIK
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteNastavnik(@PathVariable Integer id) {
 		return nastavnikService.deleteNastavnik(id);
 	}
 
-	// UPDATE NASTAVNIK
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedNastavnik,
@@ -85,7 +85,7 @@ public class NastavnikController {
 		return nastavnikService.updateUcenik(id, updatedNastavnik, result);
 	}
 
-	//nadji nastavnika po id
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getNastavnikById(@PathVariable Integer id) {
@@ -99,7 +99,7 @@ public class NastavnikController {
 		return new ResponseEntity<>(nastavnik.get(), HttpStatus.OK);
 	}
 
-	//nadji nastavnika po imenu
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getNastavnikByName(@RequestParam String ime) {
@@ -113,7 +113,7 @@ public class NastavnikController {
 		return new ResponseEntity<>(nastavnik.get(), HttpStatus.OK);
 	}
 
-	// nadji nastavnika po id-u predmeta
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet/{predmetId}")
 	public ResponseEntity<?> getNastavniciByPredmetId(@PathVariable Integer predmetId) {
@@ -129,7 +129,7 @@ public class NastavnikController {
 		return new ResponseEntity<>(nastavnici, HttpStatus.OK);
 	}
 
-	// nadji nastavnika po imenu predmeta
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/predmetIme")
 	public ResponseEntity<?> getNastavniciByPredmetIme(@RequestParam String ime) {

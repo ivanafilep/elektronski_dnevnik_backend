@@ -71,7 +71,7 @@ public class UcenikController {
 	}
 
 	
-	// REGISTRACIJA UCENIKA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewUcenik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
@@ -79,7 +79,7 @@ public class UcenikController {
 	}
 
 	
-	// UPDATE UCENIKA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedUcenik,
@@ -88,7 +88,7 @@ public class UcenikController {
 	}
 
 	
-	// BRISANJE UCENIKA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteUcenik(@PathVariable Integer id) {
@@ -105,14 +105,14 @@ public class UcenikController {
 	}
 
 	
-	// DODELA RODITELJA UCENIKU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/ucenik/{ucenikId}/roditelj/{roditeljId}")
 	public ResponseEntity<?> dodeliRoditeljaUceniku(@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
 		return ucenikService.dodeliRoditeljaUceniku(ucenikId, roditeljId);
 	}
 
-	// PRETRAGA PO ID
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getUcenikById(@PathVariable Integer id) {
@@ -126,7 +126,7 @@ public class UcenikController {
 		return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
 	}
 
-	// PRETRAGA PO IMENU UCENIKA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getUcenikByName(@RequestParam String ime) {
@@ -140,7 +140,7 @@ public class UcenikController {
 		return new ResponseEntity<>(ucenik.get(), HttpStatus.OK);
 	}
 
-	// nadji ucenika po id-u roditelja
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/roditelj/{roditeljId}")
 	public ResponseEntity<?> getUceniciByRoditeljId(@PathVariable Integer roditeljId) {
@@ -154,7 +154,7 @@ public class UcenikController {
 		return new ResponseEntity<>(ucenici, HttpStatus.OK);
 	}
 
-	// nadji ucenike ciji se roditelj zove nekako
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/roditelj")
 	public ResponseEntity<?> getUceniciByImeRoditelja(@RequestParam String imeRoditelja) {
@@ -169,7 +169,7 @@ public class UcenikController {
 		return new ResponseEntity<>(ucenici, HttpStatus.OK);
 	}
 
-	// DODELA NASTAVNIKPREDMET UCENIKU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{ucenikId}/nastavnikPredmet/{nastavnikPredmetId}")
 	public ResponseEntity<?> dodeliNastavnikPredmetUceniku(@PathVariable Integer ucenikId,

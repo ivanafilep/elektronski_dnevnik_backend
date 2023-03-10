@@ -46,7 +46,7 @@ public class PredmetController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	// ADMIN RADI OVO
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
@@ -54,14 +54,14 @@ public class PredmetController {
 		return new ResponseEntity<Iterable<Predmet>>(predmetRepository.findAll(), HttpStatus.OK);
 	}
 
-	// CREATE PREDMET
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewUPredmet(@Valid @RequestBody PredmetDTO newPredmet, BindingResult result) {
 		return predmetService.addNewUPredmet(newPredmet, result);
 	}
 
-	// UPDATE PREDMET
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updatePredmet(@PathVariable Integer id, @Valid @RequestBody PredmetDTO updatedPredmet,
@@ -69,14 +69,14 @@ public class PredmetController {
 		return predmetService.updatePredmet(id, updatedPredmet, result);
 	}
 
-	// DELETE PREDMET
+
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePredmet(@PathVariable Integer id) {
 		return predmetService.deletePredmet(id);
 	}
 
-	// PRETRAGA PO ID
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getPredmetById(@PathVariable Integer id) {
@@ -90,7 +90,7 @@ public class PredmetController {
 		return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
 	}
 
-	// PRETRAGA PO IMENU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getPredmetByName(@RequestParam String ime) {
@@ -104,7 +104,7 @@ public class PredmetController {
 		return new ResponseEntity<>(predmet.get(), HttpStatus.OK);
 	}
 
-	// nadji predmet po id-u nastavnika
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/nastavnik/{nastavnikId}")
 	public ResponseEntity<?> getPredmetByNastavnikId(@PathVariable Integer nastavnikId) {
@@ -120,7 +120,7 @@ public class PredmetController {
 		return new ResponseEntity<>(predmeti, HttpStatus.OK);
 	}
 
-	// nadji predmet po imenu nastavnika
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/nastavnikIme")
 	public ResponseEntity<?> getPredmetByNastavnikIme(@RequestParam String ime) {

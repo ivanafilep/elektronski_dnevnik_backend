@@ -48,7 +48,7 @@ public class AdminController {
 		return new ResponseEntity<Iterable<Admin>>(adminRepository.findAll(), HttpStatus.OK);
 	}
 
-	// REGISTRACIJA ADMINA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
@@ -56,7 +56,7 @@ public class AdminController {
 	}
 
 	
-	// UPDATE ADMINA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
@@ -64,14 +64,14 @@ public class AdminController {
 		return adminService.updateAdmin(id, updatedAdmin, result);
 	}
 
-	// DELETE ADMINA
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteAdmin(@PathVariable Integer id) {
 		return adminService.deleteAdmin(id);
 	}
 
-	// PRETRAGA PO ID
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getAdminById(@PathVariable Integer id) {
@@ -85,7 +85,7 @@ public class AdminController {
 		return new ResponseEntity<>(admin.get(), HttpStatus.OK);
 	}
 
-	// PRETRAGA PO IMENU
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getAdminByIme(@RequestParam String ime) {

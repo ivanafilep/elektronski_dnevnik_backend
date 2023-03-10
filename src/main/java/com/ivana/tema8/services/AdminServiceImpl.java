@@ -34,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	// REGISTRACIJA Admin
+	
 	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Admin newAdmin = new Admin();
 		RoleEntity roleEntity = roleRepository.findById(1).orElse(null);
@@ -64,7 +64,7 @@ public class AdminServiceImpl implements AdminService {
 		return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
 	}
 
-	// UPDATE
+	
 	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
 			BindingResult result) {
 		logger.info("Pokušaj izmene admina sa id-jem {}", id);
@@ -87,7 +87,7 @@ public class AdminServiceImpl implements AdminService {
 		return new ResponseEntity<>(admin, HttpStatus.OK);
 	}
 
-	// DELETE
+	
 	public ResponseEntity<?> deleteAdmin(@PathVariable Integer id) {
 		Optional<Admin> admin = adminRepository.findById(id);
 		if (admin.isEmpty()) {
