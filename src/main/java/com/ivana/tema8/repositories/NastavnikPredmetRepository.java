@@ -1,6 +1,7 @@
 package com.ivana.tema8.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -17,6 +18,8 @@ public interface NastavnikPredmetRepository extends CrudRepository<NastavnikPred
 	NastavnikPredmet findByNastavnikIdAndPredmetId(Integer nastavnikId, Integer predmetId);
 
 	List<NastavnikPredmet> findByNastavnikId(Integer id);
+
+	
 
 
 
