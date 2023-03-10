@@ -1,5 +1,6 @@
 package com.ivana.tema8.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -51,42 +52,61 @@ public class OcenaServiceImpl implements OcenaService {
 	private EmailServiceImpl emailService;
 
 	@Override
-	public Iterable<Ocena> findOcenaByPredmet(String nazivPredmeta) {
+	public ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta) {
 		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o JOIN o.nastavnikPredmet np " + "JOIN np.predmet p "
 				+ "WHERE p.nazivPredmeta = :nazivPredmeta ";
 		Query query = em.createQuery(hql);
 		query.setParameter("nazivPredmeta", nazivPredmeta);
-		return query.getResultList();
+		List<Ocena> rezultat = query.getResultList();
+		
+		if (rezultat.isEmpty()) {
+			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
 	@Override
-	public Iterable<Ocena> findOcenaByIme(String ime) {
+	public ResponseEntity<?> findOcenaByIme(String ime) {
 		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o " + "INNER JOIN o.ucenik u "
 				+ "WHERE u.ime = :imeUcenika";
 		Query query = em.createQuery(hql);
 		query.setParameter("imeUcenika", ime);
-		return query.getResultList();
+		List<Ocena> rezultat =  query.getResultList();
+		
+		if (rezultat.isEmpty()) {
+			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
 	@Override
-	public Iterable<Ocena> findOcenaByImePredmet(String ime) {
+	public ResponseEntity<?> findOcenaByImePredmet(String ime) {
 		String hql = "SELECT o.vrednostOcene, p.nazivPredmeta " + "FROM Ocena o " + "JOIN o.ucenik u "
 				+ "JOIN o.nastavnikPredmet np " + "JOIN np.predmet p " + "WHERE u.ime = :ime ";
 
 		Query query = em.createQuery(hql);
 		query.setParameter("ime", ime);
-		return query.getResultList();
-
+		List<Ocena> rezultat =  query.getResultList();
+		
+		if (rezultat.isEmpty()) {
+			return new ResponseEntity<>("Ucenik ne postoji.", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
-	public Iterable<Ocena> findByPredmetIIme(String ime, String nazivPredmeta) {
+	public ResponseEntity<?> findByPredmetIIme(String ime, String nazivPredmeta) {
 		String hql = "SELECT o.vrednostOcene, p.nazivPredmeta " + "FROM Ocena o " + "INNER JOIN o.ucenik u "
 				+ "INNER JOIN o.nastavnikPredmet np " + "INNER JOIN np.predmet p "
 				+ "WHERE u.ime = :ime AND p.nazivPredmeta = :nazivPredmeta ";
 		Query query = em.createQuery(hql);
 		query.setParameter("ime", ime);
 		query.setParameter("nazivPredmeta", nazivPredmeta);
-		return query.getResultList();
+		List<Ocena> rezultat  = query.getResultList();
+		
+		if (rezultat.isEmpty()) {
+			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
 	}
 
 	// UPDATE OCENA

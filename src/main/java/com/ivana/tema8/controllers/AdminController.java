@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class AdminController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all admins.");
@@ -47,13 +49,15 @@ public class AdminController {
 	}
 
 	// REGISTRACIJA ADMINA
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		return adminService.addNewAdmin(newUser, result);
 	}
 
-	// ADMIN MOZE OVO
+	
 	// UPDATE ADMINA
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
 			BindingResult result) {
@@ -61,12 +65,14 @@ public class AdminController {
 	}
 
 	// DELETE ADMINA
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteAdmin(@PathVariable Integer id) {
 		return adminService.deleteAdmin(id);
 	}
 
 	// PRETRAGA PO ID
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getAdminById(@PathVariable Integer id) {
 		Optional<Admin> admin = adminRepository.findById(id);
@@ -80,6 +86,7 @@ public class AdminController {
 	}
 
 	// PRETRAGA PO IMENU
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getAdminByIme(@RequestParam String ime) {
 		Optional<Admin> admin = adminRepository.findByIme(ime);
@@ -96,69 +103,6 @@ public class AdminController {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
 
 	}
-	/*
-	public ResponseEntity<?> addNewAdmin (@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
-		Admin newAdmin = new Admin();
-		RoleEntity roleEntity = roleRepository.findById(1).orElse(null);
 
-		newAdmin.setKorisnickoIme(newUser.getKorisnickoIme());
-		newAdmin.setIme(newUser.getIme());
-		newAdmin.setPrezime(newUser.getPrezime());
-		newAdmin.setEmail(newUser.getEmail());
-		
-		if (newUser.getLozinka().equals(newUser.getPotvrdjenaLozinka())) {
-			newAdmin.setLozinka(newUser.getLozinka());
-		} else {
-			return new ResponseEntity<>("Lozinke se ne poklapaju! Molimo unesite opet.", HttpStatus.BAD_REQUEST);
-		}
-		
-		logger.info("Dodavanje novog admina.");
-		newAdmin.setRole(roleEntity);
-		
-		if (result.hasErrors()) {
-			String errorMessage = createErrorMessage(result);
-	        logger.error("Validacija neuspela: {}", errorMessage);
-			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
-        }
-		
-		adminRepository.save(newAdmin);
-		logger.info("Novi admin uspešno dodat.");
-		return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
-	}
-	
-		Optional<Admin> admin = adminRepository.findById(id);
-			if (admin.isEmpty()) {
-				logger.warn("Zahtev sa brisanje nastavnika sa nepostojecim ID {}", id);
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				logger.info("DELETE zahtev za brisanje admina sa ID {}", id);
-				adminRepository.delete(admin.get());
-				return new ResponseEntity<>(HttpStatus.OK);
-				
-			}			
-	}
-	/*
-			logger.info("Pokušaj izmene admina sa id-jem {}", id);
-			Admin admin = adminRepository.findById(id).get();
-			
-			admin.setKorisnickoIme(updatedAdmin.getKorisnickoIme());
-			admin.setLozinka(updatedAdmin.getLozinka());
-			admin.setIme(updatedAdmin.getIme());
-			admin.setPrezime(updatedAdmin.getPrezime());
-			admin.setEmail(updatedAdmin.getEmail());
-		
-			
-			if (result.hasErrors()) {
-				String errorMessage = createErrorMessage(result);
-		        logger.error("Validacija neuspela: {}", errorMessage);
-				return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
-	        }
-			
-			adminRepository.save(admin);
-			logger.info("Admin sa id-jem {} je uspešno izmenjen", id);
-			return new ResponseEntity<>(admin, HttpStatus.OK);
-		}
-		
-		*/
 	
 }

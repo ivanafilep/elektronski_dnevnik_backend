@@ -1,4 +1,4 @@
-/*
+
 package com.ivana.tema8.security.config;
 
 import javax.crypto.SecretKey;
@@ -34,10 +34,10 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(this.secretKey), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/login").permitAll().anyRequest()
-				.authenticated();
+				.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+				.anyRequest().authenticated();
 		return http.build();
 	}
 
 }
-*/
+

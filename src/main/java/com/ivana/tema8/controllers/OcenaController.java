@@ -1,5 +1,6 @@
 package com.ivana.tema8.controllers;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,8 @@ public class OcenaController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all ocene.");
@@ -56,6 +60,7 @@ public class OcenaController {
 	}
 
 	// UPDATE OCENA
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
 			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
@@ -63,6 +68,7 @@ public class OcenaController {
 	}
 
 	// CREATE OCENA
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST, path = "/{vrednostOcene}/{nastavnikPredmetId}/{ucenikId}/{polugodisteId}")
 	public ResponseEntity<?> createOcena(@PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId,
 			@PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
@@ -70,12 +76,14 @@ public class OcenaController {
 	}
 
 	// OBRISI OCENU
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteOcena(@PathVariable Integer id) {
 		return ocenaService.deleteOcena(id);
 	}
 
 	// PRETRAGA OCENE PO ID-U
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getOcenaById(@PathVariable Integer id) {
 		Optional<Ocena> ocena = ocenaRepository.findById(id);
@@ -88,124 +96,42 @@ public class OcenaController {
 		return new ResponseEntity<>(ocena.get(), HttpStatus.OK);
 	}
 
-	// pretraga ocena po predmetu I KADA NAPISEM NPR FIZIKA VRATI MI 200 OK PROVERI
+	// pretraga ocena po predmetu 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet")
-	public ResponseEntity<Iterable<Ocena>> findOcenaByPredmet(@RequestParam String nazivPredmeta) {
-
-		Iterable<Ocena> ocene = ocenaService.findOcenaByPredmet(nazivPredmeta);
+	public ResponseEntity<?> findOcenaByPredmet(@RequestParam String nazivPredmeta) {
 		logger.info("Ocene iz predmeta: {} su uspesno pronadjene", nazivPredmeta);
-		return new ResponseEntity<>(ocene, HttpStatus.OK);
+		return ocenaService.findOcenaByPredmet(nazivPredmeta);
 	}
 
-	// pretraga ocena po imenu ucenika I KADA NAPISEM NPR NECIJE IME KOJE NE POSTOJI
-	// VRATI MI 200 OK PROVERI
+	// pretraga ocena po imenu ucenika 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/ime")
-	public ResponseEntity<Iterable<Ocena>> findOcenaByIme(@RequestParam String ime) {
-		Iterable<Ocena> ocene = ocenaService.findOcenaByIme(ime);
+	public ResponseEntity<?> findOcenaByIme(@RequestParam String ime) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
-		return new ResponseEntity<>(ocene, HttpStatus.OK);
+		return ocenaService.findOcenaByIme(ime);
 	}
 
 	// pretraga ocena po imenu ucenika, ali da ima i predmete iz kog je ta ocena
-	// ISTO KAO PRETHODNO
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/imePredmet")
-	public ResponseEntity<Iterable<Ocena>> findOcenaByImePredmet(@RequestParam String ime) {
-		Iterable<Ocena> ocene = ocenaService.findOcenaByImePredmet(ime);
+	public ResponseEntity<?> findOcenaByImePredmet(@RequestParam String ime) {
 		logger.info("Ocene od ucenika sa imenom: {} su uspesno pronadjene", ime);
-		return new ResponseEntity<>(ocene, HttpStatus.OK);
+		return ocenaService.findOcenaByImePredmet(ime);
 	}
 
 	// TAKODJE KAO PRETHODNO SVE
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/imeIPredmet")
-	public ResponseEntity<Iterable<Ocena>> findOcenaByImeIPredmet(@RequestParam String ime,
+	public ResponseEntity<?> findOcenaByPredmetIIme(@RequestParam String ime,
 			@RequestParam String nazivPredmeta) {
-		Iterable<Ocena> ocene = ocenaService.findByPredmetIIme(ime, nazivPredmeta);
 		logger.info("Ocene od ucenika sa imenom: {}, iz predmeta: {} su uspesno pronadjene", ime, nazivPredmeta);
-		return new ResponseEntity<>(ocene, HttpStatus.OK);
+		return ocenaService.findByPredmetIIme(ime, nazivPredmeta);
 	}
 
 	private String createErrorMessage(BindingResult result) {
 		return result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining("\n"));
-
-	}
-	
-	/*
-	public ResponseEntity<?> updateOcena(@PathVariable Integer id, @RequestParam Integer vrednostOcene,
-			@RequestParam("nastavnikId") Integer nastavnikId, @RequestParam("predmetId") Integer predmetId) {
-		Optional<Ocena> ocenaOptional = ocenaRepository.findById(id);
-
-		if (!ocenaOptional.isPresent()) {
-			return new ResponseEntity<>("Ocena nije pronadjena", HttpStatus.BAD_REQUEST);
-		}
-
-		Ocena existingOcena = ocenaOptional.get();
-		NastavnikPredmet nastavnikPredmet = nastavnikPredmetRepository.findByNastavnikIdAndPredmetId(nastavnikId,
-				predmetId);
-
-		if (nastavnikPredmet == null) {
-			return new ResponseEntity<>("Nastavnik ne predaje ovaj predmet.", HttpStatus.BAD_REQUEST);
-		}
-
-		existingOcena.setVrednostOcene(vrednostOcene);
-		existingOcena.setNastavnikPredmet(nastavnikPredmet);
-
-		Ocena updatedOcena = ocenaRepository.save(existingOcena);
 		
-		logger.info("Ocena je uspesno azurirana.");
-		return new ResponseEntity<>("Ocena je uspesno azurirana.", HttpStatus.OK);
 	}
-	
-	public ResponseEntity<?> createOcena( @PathVariable Integer vrednostOcene, @PathVariable Integer nastavnikPredmetId, @PathVariable Integer ucenikId, @PathVariable Integer polugodisteId) {
-	    
-	    Optional<NastavnikPredmet> nastavnikPredmet = nastavnikPredmetRepository.findById(nastavnikPredmetId);
-	    Optional<Ucenik> ucenik = ucenikRepository.findById(ucenikId);
-	    Optional<Polugodiste> polugodiste = polugodisteRepository.findById(polugodisteId);
-
-	    if (!nastavnikPredmet.isPresent() || !ucenik.isPresent() || !polugodiste.isPresent()) {
-	        return new ResponseEntity<>("NastavnikPredmet, ucenik ili polugodište nisu pronađeni", HttpStatus.NOT_FOUND);
-	    }
-	    
-	    if (vrednostOcene > 5 || vrednostOcene < 1) {
-	    	return new ResponseEntity<>("Ocena mora biti izmedju 1 i 5.", HttpStatus.NOT_FOUND);
-	    }
-
-	    Ocena ocena = new Ocena();
-	    ocena.setVrednostOcene(vrednostOcene);
-	    ocena.setNastavnikPredmet(nastavnikPredmet.get());
-	    ocena.setUcenik(ucenik.get());
-	    ocena.setPolugodiste(polugodiste.get());
-	    
-	    logger.info("Dodavanje nove ocene.");
-		ocenaRepository.save(ocena);
-	
-		
-	    EmailDTO emailDTO = new EmailDTO();
-	    emailDTO.setTo("filepivana95@gmail.com");
-	    emailDTO.setSubject("Nova ocena");
-	    
-	    emailDTO.setText("Vaše dete " + ocena.getUcenik().getIme() + " " + ocena.getUcenik().getPrezime() + " je dobilo ocenu " + ocena.getVrednostOcene() + " iz predmeta " + ocena.getNastavnikPredmet().getPredmet().getNazivPredmeta() + " od nastavnika " 
-	    		 + ocena.getNastavnikPredmet().getNastavnik().getIme() + " " + ocena.getNastavnikPredmet().getNastavnik().getPrezime() + " .");
-	    
-	  
-	    emailService.sendSimpleMessage(emailDTO);
-
-	    logger.info("Nova ocena uspešno dodata.");
-	    return new ResponseEntity<>("Ocena je uspešno dodata",  HttpStatus.OK);
-	}
-
-	public ResponseEntity<?> deleteOcena(@PathVariable Integer id) {
-		Optional<Ocena> ocena = ocenaRepository.findById(id);
-			if (ocena.isEmpty()) {
-				logger.warn("Zahtev sa brisanje ocene sa nepostojecim ID {}", id);
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				logger.info("DELETE zahtev za brisanje ocene sa ID {}", id);
-				ocenaRepository.delete(ocena.get());
-				return new ResponseEntity<>("Ocena je obrisana", HttpStatus.OK);
-			}
-			
-	}
-	*/
-
 
 }
