@@ -5188,3 +5188,73 @@ io.jsonwebtoken.security.SignatureException: JWT signature does not match locall
 2023-03-10 20:22:29.611  INFO 15108 --- [RMI TCP Connection(3)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-03-10 20:22:29.612  INFO 15108 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-03-10 20:22:29.624  INFO 15108 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-03-10 20:36:36.315  INFO 2216 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 2216 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\projekat_dnevnik\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\projekat_dnevnik)
+2023-03-10 20:36:36.319  INFO 2216 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-10 20:36:37.253  INFO 2216 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-10 20:36:37.374  INFO 2216 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 10 JPA repository interfaces.
+2023-03-10 20:36:38.239  INFO 2216 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-10 20:36:38.253  INFO 2216 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-10 20:36:38.254  INFO 2216 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-10 20:36:38.427  INFO 2216 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-10 20:36:38.428  INFO 2216 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2041 ms
+2023-03-10 20:36:39.243  INFO 2216 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-10 20:36:39.690  INFO 2216 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-10 20:36:41.242  INFO 2216 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 20:36:42.354  WARN 2216 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7abd7eb3-0fcc-429b-8bfa-1491cebf38e0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-03-10 20:36:42.549  INFO 2216 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7ec75228, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55cf5626, org.springframework.security.web.context.SecurityContextPersistenceFilter@211cf27b, org.springframework.security.web.header.HeaderWriterFilter@3fb42ec7, org.springframework.security.web.authentication.logout.LogoutFilter@6af0407c, com.ivana.tema8.security.config.JWTAuthorizationFilter@8de8b07, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1e4b9592, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@438a65a7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7b55f0a6, org.springframework.security.web.session.SessionManagementFilter@943cf5, org.springframework.security.web.access.ExceptionTranslationFilter@1659d7d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6bbac73d]
+2023-03-10 20:36:42.651  WARN 2216 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-10 20:36:43.340  INFO 2216 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-10 20:36:43.353  INFO 2216 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 7.584 seconds (JVM running for 8.503)
+2023-03-10 20:36:51.336  INFO 2216 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-10 20:36:51.337  INFO 2216 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-10 20:36:51.338  INFO 2216 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-10 20:37:17.172  INFO 2216 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Ocene iz predmeta: Srpski jezik su uspesno pronadjene
+2023-03-10 20:37:50.294  INFO 2216 --- [http-nio-8080-exec-5] c.i.t.services.FileHandlerServiceImpl    : Ocene iz predmeta: Srpski jezik su uspesno pronadjene
+2023-03-10 20:38:11.601  INFO 2216 --- [http-nio-8080-exec-6] c.i.t.services.FileHandlerServiceImpl    : Ocene iz predmeta: Matematika su uspesno pronadjene
+2023-03-10 20:40:05.971  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-03-10 20:40:05.989  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-03-10 20:40:05.991  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-10 20:40:06.008  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 20:40:06.011  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-10 20:40:06.024  INFO 2216 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-03-10 20:41:25.336  INFO 7016 --- [main] c.i.tema8.PokusajProjektaApplication     : Starting PokusajProjektaApplication using Java 17.0.4.1 on DESKTOP-O1HPPIA with PID 7016 (C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\projekat_dnevnik\target\classes started by luka in C:\Users\luka\Documents\workspace-spring-tool-suite-4-4.16.1.RELEASE\projekat_dnevnik)
+2023-03-10 20:41:25.342  INFO 7016 --- [main] c.i.tema8.PokusajProjektaApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-03-10 20:41:26.293  INFO 7016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-10 20:41:26.428  INFO 7016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 10 JPA repository interfaces.
+2023-03-10 20:41:27.275  INFO 7016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-03-10 20:41:27.291  INFO 7016 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-10 20:41:27.292  INFO 7016 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-03-10 20:41:27.462  INFO 7016 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-10 20:41:27.463  INFO 7016 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2046 ms
+2023-03-10 20:41:28.155  INFO 7016 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-10 20:41:28.677  INFO 7016 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-10 20:41:30.287  INFO 7016 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 20:41:31.381  WARN 7016 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e265f248-16fe-49f0-b1bb-744b823b11f7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-03-10 20:41:31.580  INFO 7016 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6c6c93f8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38e88e13, org.springframework.security.web.context.SecurityContextPersistenceFilter@3751baf6, org.springframework.security.web.header.HeaderWriterFilter@601e7c97, org.springframework.security.web.authentication.logout.LogoutFilter@4c89c98a, com.ivana.tema8.security.config.JWTAuthorizationFilter@3a720ae3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cfab56d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b6fde93, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fe37d27, org.springframework.security.web.session.SessionManagementFilter@438a65a7, org.springframework.security.web.access.ExceptionTranslationFilter@5248c05a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1d6dc2b8]
+2023-03-10 20:41:31.691  WARN 7016 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-10 20:41:32.337  INFO 7016 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-10 20:41:32.350  INFO 7016 --- [main] c.i.tema8.PokusajProjektaApplication     : Started PokusajProjektaApplication in 7.606 seconds (JVM running for 9.131)
+2023-03-10 20:42:09.855  INFO 7016 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-10 20:42:09.856  INFO 7016 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-10 20:42:09.857  INFO 7016 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-03-10 20:42:47.943  INFO 7016 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Dodavanje novog predmeta.
+2023-03-10 20:42:48.086  INFO 7016 --- [http-nio-8080-exec-3] c.i.t.services.FileHandlerServiceImpl    : Novi predmet uspešno dodat.
+2023-03-10 20:43:31.947  INFO 7016 --- [http-nio-8080-exec-4] c.i.t.services.FileHandlerServiceImpl    : DELETE zahtev za brisanje predmeta sa ID 130
+2023-03-10 20:43:59.053  INFO 7016 --- [http-nio-8080-exec-5] c.i.t.services.FileHandlerServiceImpl    : Getting all ucenici
+2023-03-10 20:49:32.204  INFO 7016 --- [http-nio-8080-exec-10] c.i.t.services.FileHandlerServiceImpl    : Predmet sa ID: 10, je uspešno dodeljen nastavniku sa ID: 73, u razredu sa ID: 8
+2023-03-10 21:05:17.131  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-03-10 21:05:17.146  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-03-10 21:05:17.148  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-10 21:05:17.162  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-10 21:05:17.164  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-10 21:05:17.174  INFO 7016 --- [RMI TCP Connection(28)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -62,43 +62,56 @@ public class OcenaServiceImpl implements OcenaService {
 	@Autowired
 	private NastavnikRepository nastavnikRepository;
 
-	@Override
+
+	
 	public ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta, Authentication authentication) {
 
-		String email = (String) authentication.getName();
+	    String email = (String) authentication.getName();
 
-		Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
-		
-		String hql = "SELECT o.vrednostOcene " + "FROM Ocena o JOIN o.nastavnikPredmet np " + "JOIN np.predmet p "
-				+ "WHERE p.nazivPredmeta = :nazivPredmeta ";
-		Query query = em.createQuery(hql);
-		query.setParameter("nazivPredmeta", nazivPredmeta);
-		List<Ocena> rezultat = query.getResultList();
+	    Korisnik ulogovanKorisnik = korisnikRepository.findByEmail(email);
 
-		if (rezultat.isEmpty()) {
-			return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
-		}
-		
-		
-		if (ulogovanKorisnik.getRole().getIme().equals("ROLE_NASTAVNIK") ) {
-			Nastavnik ulogovanNastavnik = (Nastavnik) ulogovanKorisnik;
-			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
-		} else if (ulogovanKorisnik.getRole().getIme().equals("ROLE_UCENIK") ) {
-			Ucenik ulogovanUcenik = (Ucenik) ulogovanKorisnik; 
-			boolean ispravanPredmet = false;
-			for (NastavnikPredmet ucenikovPredmet : ulogovanUcenik.getNastavnikPredmet()) {
-				if (ucenikovPredmet.getPredmet().getNazivPredmeta().equals(nazivPredmeta)) {
-					ispravanPredmet = true;
-				}
-			}
-			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
-			
-		} else if (!ulogovanKorisnik.getRole().getIme().equals("ROLE_ADMIN") ) {
-			
-			return new ResponseEntity<List<Ocena>>(rezultat, HttpStatus.OK);
-		}  else {
-			return new ResponseEntity<>("Ulogovan korisnik nema pravo pristupa.", HttpStatus.UNAUTHORIZED);
-		}
+	    String hql = "SELECT o.vrednostOcene " + "FROM Ocena o JOIN o.nastavnikPredmet np " + "JOIN np.predmet p "
+	            + "WHERE p.nazivPredmeta = :nazivPredmeta ";
+	    Query query = em.createQuery(hql);
+	    query.setParameter("nazivPredmeta", nazivPredmeta);
+	    List<Ocena> rezultat = query.getResultList();
+
+	    if (rezultat.isEmpty()) {
+	        return new ResponseEntity<>("Predmet ne postoji.", HttpStatus.BAD_REQUEST);
+	    }
+
+	    boolean ispravanPredmet = false;
+
+	    if (ulogovanKorisnik.getRole().getIme().equals("ROLE_NASTAVNIK")) {
+	        Nastavnik ulogovanNastavnik = (Nastavnik) ulogovanKorisnik;
+	        for (NastavnikPredmet nastavnikovPredmet : ulogovanNastavnik.getNastavnikPredmet()) {
+	            if (nastavnikovPredmet.getPredmet().getNazivPredmeta().equals(nazivPredmeta)) {
+	                ispravanPredmet = true;
+	            }
+	        }
+
+	        if (!ispravanPredmet) {
+	            return new ResponseEntity<>("Nemate pravo pristupa ovom predmetu.", HttpStatus.UNAUTHORIZED);
+	        }
+
+	        return new ResponseEntity<>(rezultat, HttpStatus.OK);
+	    } else if (ulogovanKorisnik.getRole().getIme().equals("ROLE_UCENIK")) {
+	        Ucenik ulogovanUcenik = (Ucenik) ulogovanKorisnik;
+	        for (NastavnikPredmet ucenikovPredmet : ulogovanUcenik.getNastavnikPredmet()) {
+	            if (ucenikovPredmet.getPredmet().getNazivPredmeta().equals(nazivPredmeta)) {
+	                ispravanPredmet = true;
+	            }
+	        }
+
+	        if (!ispravanPredmet) {
+	            return new ResponseEntity<>("Nemate pravo pristupa ovom predmetu.", HttpStatus.UNAUTHORIZED);
+	        }
+	        return new ResponseEntity<>(rezultat, HttpStatus.OK);
+	    } else if (ulogovanKorisnik.getRole().getIme().equals("ROLE_ADMIN")) {
+	        return new ResponseEntity<>(rezultat, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("Ulogovan korisnik nema pravo pristupa.", HttpStatus.UNAUTHORIZED);
+	    }
 	}
 
 	@Override
