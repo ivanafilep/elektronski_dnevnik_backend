@@ -1,16 +1,18 @@
 package com.ivana.tema8.services;
 
+import org.springframework.http.ResponseEntity;
+
 import com.ivana.tema8.entities.Ocena;
 
 public interface OcenaService {
 
-	Iterable<Ocena> findOcenaByPredmet(String nazivPredmeta);
+	ResponseEntity<?> findOcenaByPredmet(String nazivPredmeta);
 
-	Iterable<Ocena> findOcenaByIme(String ime);
+	ResponseEntity<?> findOcenaByIme(String ime);
 
-	Iterable<Ocena> findOcenaByImePredmet(String ime);
+	ResponseEntity<?> findOcenaByImePredmet(String ime);
 	
-	Iterable<Ocena> findByPredmetIIme (String ime, String nazivPredmeta);
+	ResponseEntity<?> findByPredmetIIme (String ime, String nazivPredmeta);
 
 
 }

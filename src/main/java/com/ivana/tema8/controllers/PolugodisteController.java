@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,8 @@ public class PolugodisteController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all polugodiste");
@@ -45,6 +48,7 @@ public class PolugodisteController {
 	}
 
 	// CREATE POLUGODISTE
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST, path = "/novoPolugodiste")
 	public ResponseEntity<?> addNewPolugodiste(@Valid @RequestBody PolugodisteDTO novoPolugodiste,
 			BindingResult result) {
@@ -52,12 +56,14 @@ public class PolugodisteController {
 	}
 	
 	//UPDATE
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
 		return polugodisteService.updatePolugodiste(id, updatedPolugodiste, result);
 	}
 
 	// DELETE POLUGODISTE
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deletePolugodiste(@PathVariable Integer id) {
 		return polugodisteService.deletePolugodiste(id);
@@ -68,59 +74,6 @@ public class PolugodisteController {
 
 	}
 
-	/*
-	public ResponseEntity<?> addNewPolugodiste (@Valid @RequestBody PolugodisteDTO novoPolugodiste, BindingResult result) {
-		Polugodiste newPolugodiste = new Polugodiste();
-		
-		newPolugodiste.setBrojPolugodista(novoPolugodiste.getBrojPolugodista());
-		logger.info("Dodavanje novog polugodista.");
-		
-		if (result.hasErrors()) {
-			String errorMessage = createErrorMessage(result);
-	        logger.error("Validacija neuspela: {}", errorMessage);
-			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
-        }
-		
-		polugodisteRepository.save(newPolugodiste);
-		logger.info("Novo polugodiste uspešno dodato.");
-		return new ResponseEntity<>(newPolugodiste, HttpStatus.OK);
-	}
-	
-	public ResponseEntity<?> deletePolugodiste (@PathVariable Integer id) {
-		Optional<Polugodiste> polugodiste = polugodisteRepository.findById(id);
-			if (polugodiste.isEmpty()) {
-				logger.warn("Zahtev sa brisanje polugodista sa nepostojecim ID {}", id);
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			} else {
-				logger.info("DELETE zahtev za brisanje polugodista sa ID {}", id);
-				polugodisteRepository.delete(polugodiste.get());
-				return new ResponseEntity<>(HttpStatus.OK);
-				
-			}			
-	}
-	
-	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
-		return polugodisteService.updatePolugodiste(id, updatedPolugodiste, result);
-	}
-	/*
-	public ResponseEntity<?> updatePolugodiste(@PathVariable Integer id, @Valid @RequestBody PolugodisteDTO updatedPolugodiste, BindingResult result) {
-		logger.info("Pokušaj izmene polugodista sa id-jem {}", id);
-		Polugodiste polugodiste = polugodisteRepository.findById(id).get();
-		
-		polugodiste.setBrojPolugodista(updatedPolugodiste.getBrojPolugodista());
-		
-		if (result.hasErrors()) {
-			String errorMessage = createErrorMessage(result);
-	        logger.error("Validacija neuspela: {}", errorMessage);
-			return new ResponseEntity<>(createErrorMessage(result), HttpStatus.BAD_REQUEST);
-        }
-		
-		polugodisteRepository.save(polugodiste);
-		logger.info("Polugodiste sa id-jem {} je uspešno izmenjen", id);
-		return new ResponseEntity<>(polugodiste, HttpStatus.OK);
-	}
-	*/
 
 	
 }
