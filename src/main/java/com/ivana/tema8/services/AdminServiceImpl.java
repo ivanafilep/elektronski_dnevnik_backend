@@ -1,6 +1,10 @@
+/*
 package com.ivana.tema8.services;
 
 import java.util.Optional;
+
+
+
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -20,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.Admin;
-import com.ivana.tema8.entities.RoleEntity;
+//import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.repositories.AdminRepository;
-import com.ivana.tema8.repositories.RoleRepository;
+//import com.ivana.tema8.repositories.RoleRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -30,11 +34,11 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository adminRepository;
 	@Autowired
-	private RoleRepository roleRepository;
+	//private RoleRepository roleRepository;
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	
+	/*
 	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Admin newAdmin = new Admin();
 		RoleEntity roleEntity = roleRepository.findById(1).orElse(null);
@@ -63,8 +67,8 @@ public class AdminServiceImpl implements AdminService {
 		logger.info("Novi admin uspešno dodat.");
 		return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
 	}
-
-	
+*/
+	/*
 	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
 			BindingResult result) {
 		logger.info("Pokušaj izmene admina sa id-jem {}", id);
@@ -107,3 +111,4 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 }
+*/

@@ -1,6 +1,9 @@
+/*
 package com.ivana.tema8.controllers;
 
 import java.util.Optional;
+
+
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -22,9 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.Admin;
-import com.ivana.tema8.entities.RoleEntity;
+//import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.repositories.AdminRepository;
-import com.ivana.tema8.repositories.RoleRepository;
+//import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.services.AdminServiceImpl;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 
@@ -36,8 +39,8 @@ public class AdminController {
 	private AdminRepository adminRepository;
 	@Autowired
 	private AdminServiceImpl adminService;
-	@Autowired
-	private RoleRepository roleRepository;
+	//@Autowired
+	//private RoleRepository roleRepository;
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
@@ -48,15 +51,15 @@ public class AdminController {
 		return new ResponseEntity<Iterable<Admin>>(adminRepository.findAll(), HttpStatus.OK);
 	}
 
-	
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewAdmin(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		return adminService.addNewAdmin(newUser, result);
 	}
 
-	
-	
+	*/
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateAdmin(@PathVariable Integer id, @RequestBody KorisnikDTO updatedAdmin,
@@ -106,3 +109,4 @@ public class AdminController {
 
 	
 }
+*/
