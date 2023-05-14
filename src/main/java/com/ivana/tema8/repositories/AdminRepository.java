@@ -1,3 +1,4 @@
+/*
 package com.ivana.tema8.repositories;
 
 import java.util.Optional;
@@ -11,3 +12,4 @@ public interface AdminRepository extends CrudRepository<Admin, Integer> {
 	Optional<Admin> findByIme(String ime);
 
 }
+*/

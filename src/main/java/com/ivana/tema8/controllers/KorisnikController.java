@@ -1,4 +1,4 @@
-package com.ivana.tema8.controllers;
+/*package com.ivana.tema8.controllers;
 
 import java.sql.Date;
 import java.util.List;
@@ -85,3 +85,4 @@ public class KorisnikController {
 	}
 
 }
+*/

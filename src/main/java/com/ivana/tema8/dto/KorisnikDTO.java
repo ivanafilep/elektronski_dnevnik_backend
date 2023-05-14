@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.ivana.tema8.security.Views;
+//import com.ivana.tema8.security.Views;
 
 public class KorisnikDTO {
 	

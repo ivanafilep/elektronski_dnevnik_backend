@@ -1,6 +1,9 @@
 package com.ivana.tema8.controllers;
 
 import java.util.Optional;
+
+
+
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -10,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ivana.tema8.dto.KorisnikDTO;
-import com.ivana.tema8.entities.Korisnik;
+//import com.ivana.tema8.entities.Korisnik;
 import com.ivana.tema8.entities.Roditelj;
-import com.ivana.tema8.entities.RoleEntity;
+//import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.RoditeljRepository;
-import com.ivana.tema8.repositories.RoleRepository;
+//import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 import com.ivana.tema8.services.RoditeljService;
@@ -37,8 +40,8 @@ public class RoditeljController {
 
 	@Autowired
 	private RoditeljRepository roditeljRepository;
-	@Autowired
-	private RoleRepository roleRepository;
+	//@Autowired
+	//private RoleRepository roleRepository;
 	@Autowired
 	private UcenikRepository ucenikRepository;
 	@Autowired
@@ -47,14 +50,14 @@ public class RoditeljController {
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all roditelji");
 		return new ResponseEntity<Iterable<Roditelj>>(roditeljRepository.findAll(), HttpStatus.OK);
 	}
 
-	
+	/*
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
@@ -62,9 +65,9 @@ public class RoditeljController {
 		return roditeljService.addNewRoditelj(newUser, result);
 	}
 
+	*/
 	
-	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateRoditelj(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedRoditelj,
 			BindingResult result) {
@@ -73,14 +76,14 @@ public class RoditeljController {
 
 	
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteRoditelj(@PathVariable Integer id) {
 		return roditeljService.deleteRoditelj(id);
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getRoditeljkById(@PathVariable Integer id) {
 		Optional<Roditelj> roditelj = roditeljRepository.findById(id);
@@ -94,7 +97,7 @@ public class RoditeljController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getRoditeljByName(@RequestParam String ime) {
 		Optional<Roditelj> roditelj = roditeljRepository.findByIme(ime);
@@ -108,7 +111,7 @@ public class RoditeljController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/ucenik/{id}")
 	public ResponseEntity<?> getUcenikById(@PathVariable Integer id) {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
@@ -122,7 +125,7 @@ public class RoditeljController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/ucenik")
 	public ResponseEntity<?> getRoditeljByImeUcenika(@RequestParam String imeUcenika) {
 		Optional<Ucenik> ucenik = ucenikRepository.findByIme(imeUcenika);

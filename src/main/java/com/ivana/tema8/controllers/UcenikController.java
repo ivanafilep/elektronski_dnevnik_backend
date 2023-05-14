@@ -3,6 +3,9 @@ package com.ivana.tema8.controllers;
 import java.util.List;
 
 
+
+
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -11,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -28,15 +31,15 @@ import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Ocena;
 import com.ivana.tema8.entities.Roditelj;
-import com.ivana.tema8.entities.RoleEntity;
+//import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
 import com.ivana.tema8.repositories.RoditeljRepository;
-import com.ivana.tema8.repositories.RoleRepository;
+//import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
-import com.ivana.tema8.security.Views;
+//import com.ivana.tema8.security.Views;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 import com.ivana.tema8.services.UcenikServiceImpl;
 
@@ -47,8 +50,8 @@ public class UcenikController {
 
 	@Autowired
 	private UcenikRepository ucenikRepository;
-	@Autowired
-	private RoleRepository roleRepository;
+	//@Autowired
+	//private RoleRepository roleRepository;
 	@Autowired
 	private RoditeljRepository roditeljRepository;
 	@Autowired
@@ -63,7 +66,7 @@ public class UcenikController {
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all ucenici");
@@ -71,7 +74,7 @@ public class UcenikController {
 	}
 
 	
-	
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewUcenik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
@@ -87,9 +90,9 @@ public class UcenikController {
 		return ucenikService.updateUcenik(id, updatedUcenik, result);
 	}
 
+	*/
 	
-	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteUcenik(@PathVariable Integer id) {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
@@ -106,14 +109,14 @@ public class UcenikController {
 
 	
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/ucenik/{ucenikId}/roditelj/{roditeljId}")
 	public ResponseEntity<?> dodeliRoditeljaUceniku(@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
 		return ucenikService.dodeliRoditeljaUceniku(ucenikId, roditeljId);
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getUcenikById(@PathVariable Integer id) {
 		Optional<Ucenik> ucenik = ucenikRepository.findById(id);
@@ -127,7 +130,7 @@ public class UcenikController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getUcenikByName(@RequestParam String ime) {
 		Optional<Ucenik> ucenik = ucenikRepository.findByIme(ime);
@@ -141,7 +144,7 @@ public class UcenikController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/roditelj/{roditeljId}")
 	public ResponseEntity<?> getUceniciByRoditeljId(@PathVariable Integer roditeljId) {
 		Optional<Roditelj> roditelj = roditeljRepository.findById(roditeljId);
@@ -155,7 +158,7 @@ public class UcenikController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/roditelj")
 	public ResponseEntity<?> getUceniciByImeRoditelja(@RequestParam String imeRoditelja) {
 		Optional<Roditelj> roditelj = roditeljRepository.findByIme(imeRoditelja);
@@ -170,7 +173,7 @@ public class UcenikController {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{ucenikId}/nastavnikPredmet/{nastavnikPredmetId}")
 	public ResponseEntity<?> dodeliNastavnikPredmetUceniku(@PathVariable Integer ucenikId,
 			@PathVariable Integer nastavnikPredmetId) {

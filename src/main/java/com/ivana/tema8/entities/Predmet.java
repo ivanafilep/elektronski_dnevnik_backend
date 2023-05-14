@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
@@ -27,6 +28,7 @@ public class Predmet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonProperty("ID")
 	private Integer id;
 	@Column
 	@NotNull(message = "Naziv predmeta mora biti naveden.")

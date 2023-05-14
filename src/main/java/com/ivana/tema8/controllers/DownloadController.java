@@ -1,7 +1,8 @@
-
+/*
 package com.ivana.tema8.controllers;
 
 import java.awt.PageAttributes.MediaType;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +34,7 @@ public class DownloadController {
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
 	@GetMapping("/log")
-	@Secured("ROLE_ADMIN")
+	//@Secured("ROLE_ADMIN")
 	public ResponseEntity<ByteArrayResource> downloadLogFile(Authentication authentication) throws java.io.IOException {
 
 		File files = new File("logs/spring-boot-logging.log");
@@ -55,4 +56,5 @@ public class DownloadController {
 	}
 	
 }
+*/
 

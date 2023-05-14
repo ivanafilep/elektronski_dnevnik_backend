@@ -1,3 +1,4 @@
+/*
 package com.ivana.tema8.dto;
 
 import javax.persistence.Column;
@@ -37,3 +38,4 @@ public class UserDTO {
 	
 
 }
+*/
