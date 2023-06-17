@@ -42,7 +42,7 @@ public class Predmet {
 
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "predmet", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "predmet", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private List<NastavnikPredmet> nastavnikPredmet = new ArrayList<NastavnikPredmet>();
 	
 	public Predmet() {

@@ -1,6 +1,6 @@
 package com.ivana.tema8.entities;
 
-//import javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-//import com.ivana.tema8.security.Views;
+import com.ivana.tema8.security.Views;
 
 
 @Entity
@@ -66,17 +66,17 @@ public class Korisnik {
 	message="Email nije validan.")
 	private String email;
 	
-	/*
+	
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "role")
 	protected RoleEntity role;
-*/
+
 	 
 	public Korisnik() {
 		super();
 	}
 
-	public Korisnik(Integer id, String korisnickoIme, String lozinka, String ime, String prezime, String email) {
+	public Korisnik(Integer id, String korisnickoIme, String lozinka, String ime, String prezime, String email, RoleEntity role) {
 		super();
 		
 		this.id = id;
@@ -85,7 +85,7 @@ public class Korisnik {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.email = email;
-		//this.role = role;
+		this.role = role;
 		
 	}
 
@@ -137,7 +137,7 @@ public class Korisnik {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-/*
+
 	public RoleEntity getRole() {
 		return role;
 	}
@@ -146,6 +146,6 @@ public class Korisnik {
 		this.role = role;
 	}
 
-	*/
+	
 	 
 }

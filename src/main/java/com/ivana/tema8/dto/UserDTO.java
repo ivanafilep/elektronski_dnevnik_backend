@@ -1,4 +1,4 @@
-/*
+
 package com.ivana.tema8.dto;
 
 import javax.persistence.Column;
@@ -7,16 +7,26 @@ public class UserDTO {
 
 	private String korisnik;
 	private String token;
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public UserDTO() {
 		super();
 
 	}
 
-	public UserDTO(String korisnik, String token) {
+	public UserDTO(String korisnik, String token, String role) {
 		super();
 		this.korisnik = korisnik;
 		this.token = token;
+		this.role = role;
 	}
 
 	public String getKorisnik() {
@@ -38,4 +48,4 @@ public class UserDTO {
 	
 
 }
-*/
+

@@ -1,16 +1,10 @@
 package com.ivana.tema8.services;
 
 import java.util.Optional;
-
-
-
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Roditelj;
-//import com.ivana.tema8.entities.RoleEntity;
+import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.OcenaRepository;
 import com.ivana.tema8.repositories.RoditeljRepository;
-//import com.ivana.tema8.repositories.RoleRepository;
+import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 
 @Service
@@ -40,8 +33,8 @@ public class UcenikServiceImpl implements UcenikService {
 	private UcenikRepository ucenikRepository;
 	@Autowired
 	private OcenaRepository ocenaRepository;
-	//@Autowired
-	//private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	@Autowired
 	private RoditeljRepository roditeljRepository;
 	@Autowired
@@ -64,7 +57,7 @@ public class UcenikServiceImpl implements UcenikService {
 		}
 	}
 
-	/*
+	
 	public ResponseEntity<?> addNewUcenik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Ucenik newUcenik = new Ucenik();
 		RoleEntity roleEntity = roleRepository.findById(2).orElse(null);
@@ -74,7 +67,7 @@ public class UcenikServiceImpl implements UcenikService {
 		newUcenik.setPrezime(newUser.getPrezime());
 		newUcenik.setEmail(newUser.getEmail());
 
-		if (newUser.getPotvrdjenaLozinka().equals(newUser.getLozinka())) {
+		if (newUser.getPotvrdjenaLozinka() != null && newUser.getPotvrdjenaLozinka().equals(newUser.getLozinka())) {
 			newUcenik.setLozinka(newUser.getLozinka());
 
 		} else {
@@ -123,7 +116,7 @@ public class UcenikServiceImpl implements UcenikService {
 		return new ResponseEntity<>(ucenik, HttpStatus.OK);
 	}
 
-	*/
+	
 	public ResponseEntity<?> dodeliRoditeljaUceniku(@PathVariable Integer ucenikId, @PathVariable Integer roditeljId) {
 
 		Ucenik ucenik = ucenikRepository.findById(ucenikId).orElse(null);

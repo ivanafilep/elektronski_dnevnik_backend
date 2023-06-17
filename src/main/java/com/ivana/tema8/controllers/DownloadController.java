@@ -1,4 +1,4 @@
-/*
+
 package com.ivana.tema8.controllers;
 
 import java.awt.PageAttributes.MediaType;
@@ -7,9 +7,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,9 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ivana.tema8.services.FileHandlerServiceImpl;
-
 import io.jsonwebtoken.io.IOException;
 
 @RestController
@@ -34,7 +30,7 @@ public class DownloadController {
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
 	@GetMapping("/log")
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	public ResponseEntity<ByteArrayResource> downloadLogFile(Authentication authentication) throws java.io.IOException {
 
 		File files = new File("logs/spring-boot-logging.log");
@@ -56,5 +52,5 @@ public class DownloadController {
 	}
 	
 }
-*/
+
 

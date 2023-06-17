@@ -36,7 +36,8 @@ public class Ucenik extends Korisnik {
 	@JoinColumn(name = "roditelj")
 	private Roditelj roditelj;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinTable(name = "Ucenik_NastavnikPredmet", joinColumns = 
 		{@JoinColumn(name = "ucenik_id", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "NastavnikPredmet_id",
@@ -49,8 +50,8 @@ public class Ucenik extends Korisnik {
 	}
 
 
-	public Ucenik(String korisnickoIme, String lozinka, String ime, String prezime, String email,/* RoleEntity role*/ Integer id, List<Ocena> ocene, Roditelj roditelj, Set<NastavnikPredmet> nastavnikPredmet) {
-		super(id, korisnickoIme, lozinka, ime, prezime, email/*, role*/);
+	public Ucenik(String korisnickoIme, String lozinka, String ime, String prezime, String email, RoleEntity role, Integer id, List<Ocena> ocene, Roditelj roditelj, Set<NastavnikPredmet> nastavnikPredmet) {
+		super(id, korisnickoIme, lozinka, ime, prezime, email, role);
 		this.ocene = ocene;
 		this.roditelj = roditelj;
 		this.nastavnikPredmet = nastavnikPredmet;

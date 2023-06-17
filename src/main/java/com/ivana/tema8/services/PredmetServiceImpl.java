@@ -91,7 +91,8 @@ public class PredmetServiceImpl implements PredmetService {
 			}
 			logger.info("DELETE zahtev za brisanje predmeta sa ID {}", id);
 			predmetRepository.delete(predmet.get());
-			return new ResponseEntity<>("Predmet je uspesno obrisan", HttpStatus.OK);
+			logger.info("predmet izbrisan");
+			return new ResponseEntity<>(predmet, HttpStatus.OK);
 		}
 	}
 

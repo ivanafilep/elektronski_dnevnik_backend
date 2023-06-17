@@ -1,16 +1,13 @@
 
-/*
-package com.ivana.tema8.services;
 
+package com.ivana.tema8.services;
 import java.util.List;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.ivana.tema8.dto.EmailDTO;
 import com.ivana.tema8.entities.Korisnik;
 import com.ivana.tema8.entities.Nastavnik;
@@ -309,4 +305,4 @@ public class OcenaServiceImpl implements OcenaService {
 	}
 
 }
-*/
+

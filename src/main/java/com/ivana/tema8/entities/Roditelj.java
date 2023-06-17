@@ -30,8 +30,8 @@ public class Roditelj extends Korisnik {
 		super();
 	}
 
-	public Roditelj(String korisnickoIme, String lozinka, String ime, String prezime, String email,/* RoleEntity role, */Integer id, List<Ucenik> dete) {
-		super(id, korisnickoIme, lozinka, ime, prezime, email /*,role*/);
+	public Roditelj(String korisnickoIme, String lozinka, String ime, String prezime, String email, RoleEntity role, Integer id, List<Ucenik> dete) {
+		super(id, korisnickoIme, lozinka, ime, prezime, email, role);
 		this.dete = dete;
 	}
 

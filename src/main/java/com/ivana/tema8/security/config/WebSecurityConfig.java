@@ -1,7 +1,8 @@
-/*
+
 package com.ivana.tema8.security.config;
 
 import javax.crypto.SecretKey;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,7 +33,8 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http.cors().and()
+			.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(this.secretKey), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
 				.anyRequest().authenticated();
@@ -40,5 +42,5 @@ public class WebSecurityConfig {
 	}
 
 }
-*/
+
 
