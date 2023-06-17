@@ -5,7 +5,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonView;
-//import com.ivana.tema8.security.Views;
+import com.ivana.tema8.entities.RoleEntity;
+import com.ivana.tema8.security.Views;
 
 public class KorisnikDTO {
 	
@@ -39,7 +40,6 @@ public class KorisnikDTO {
 	@NotNull(message = "Potvrdjena lozinka mora biti navedena.")
 	@Size(min = 2, max = 50, message = "Potvrdjena lozinka mora biti izmedju {min} and {max} karaktera.")
 	private String potvrdjenaLozinka;
-	
 	
 	public KorisnikDTO() {
 		super();

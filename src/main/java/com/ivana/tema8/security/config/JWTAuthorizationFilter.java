@@ -1,7 +1,8 @@
-/*
+
 package com.ivana.tema8.security.config;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
@@ -70,5 +71,5 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}
 
 }
-*/
+
 

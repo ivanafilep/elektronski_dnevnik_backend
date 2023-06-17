@@ -1,21 +1,15 @@
 package com.ivana.tema8.controllers;
 
 import java.util.List;
-
-
-
-
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,17 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ivana.tema8.dto.KorisnikDTO;
-//import com.ivana.tema8.entities.Korisnik;
+import com.ivana.tema8.entities.Korisnik;
 import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Predmet;
-//import com.ivana.tema8.entities.RoleEntity;
+import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.NastavnikRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
-//import com.ivana.tema8.repositories.RoleRepository;
+import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.services.FileHandlerServiceImpl;
 import com.ivana.tema8.services.NastavnikServiceImpl;
 
@@ -45,8 +38,8 @@ public class NastavnikController {
 	@Autowired
 	private NastavnikRepository nastavnikRepository;
 
-	//@Autowired
-	//private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private PredmetRepository predmetRepository;
@@ -59,29 +52,29 @@ public class NastavnikController {
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all nastavnici.");
 		return new ResponseEntity<Iterable<Nastavnik>>(nastavnikRepository.findAll(), HttpStatus.OK);
 	}
 
-	/*
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addNewNastavnik(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		return nastavnikService.addNewNastavnik(newUser, result);
 	}
 
-	*/
-	//@Secured("ROLE_ADMIN")
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> deleteNastavnik(@PathVariable Integer id) {
 		return nastavnikService.deleteNastavnik(id);
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedNastavnik,
 			BindingResult result) {
@@ -89,7 +82,7 @@ public class NastavnikController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> getNastavnikById(@PathVariable Integer id) {
 		Optional<Nastavnik> nastavnik = nastavnikRepository.findById(id);
@@ -103,7 +96,7 @@ public class NastavnikController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/by-name")
 	public ResponseEntity<?> getNastavnikByName(@RequestParam String ime) {
 		Optional<Nastavnik> nastavnik = nastavnikRepository.findByIme(ime);
@@ -117,7 +110,7 @@ public class NastavnikController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/predmet/{predmetId}")
 	public ResponseEntity<?> getNastavniciByPredmetId(@PathVariable Integer predmetId) {
 		Optional<Predmet> predmet = predmetRepository.findById(predmetId);
@@ -133,7 +126,7 @@ public class NastavnikController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET, path = "/predmetIme")
 	public ResponseEntity<?> getNastavniciByPredmetIme(@RequestParam String ime) {
 		Optional<Predmet> predmet = predmetRepository.findByNazivPredmeta(ime);

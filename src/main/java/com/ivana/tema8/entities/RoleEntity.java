@@ -1,4 +1,4 @@
-/*
+
 package com.ivana.tema8.entities;
 
 import java.util.ArrayList;
@@ -76,5 +76,5 @@ public class RoleEntity {
 	}
 
 }
-*/
+
 

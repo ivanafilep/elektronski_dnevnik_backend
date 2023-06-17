@@ -1,13 +1,9 @@
 package com.ivana.tema8.services;
 
 import java.util.List;
-
-
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +14,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
-//import com.ivana.tema8.entities.RoleEntity;
+import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.repositories.NastavnikPredmetRepository;
 import com.ivana.tema8.repositories.NastavnikRepository;
 import com.ivana.tema8.repositories.PredmetRepository;
-//import com.ivana.tema8.repositories.RoleRepository;
+import com.ivana.tema8.repositories.RoleRepository;
 
 @Service
 public class NastavnikServiceImpl implements NastavnikPredmetService {
 	
 	@Autowired
 	private NastavnikRepository nastavnikRepository;
-	//@Autowired
-	//private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	@Autowired
 	private PredmetRepository predmetRepository;
 	@Autowired
@@ -42,7 +37,7 @@ public class NastavnikServiceImpl implements NastavnikPredmetService {
 	
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 	
-	/*
+	
 	public ResponseEntity<?> addNewNastavnik (@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Nastavnik newNastavnik = new Nastavnik();
 		RoleEntity roleEntity = roleRepository.findById(3).orElse(null);
@@ -73,7 +68,7 @@ public class NastavnikServiceImpl implements NastavnikPredmetService {
 		return new ResponseEntity<>(newNastavnik, HttpStatus.CREATED);
 	}
 	
-	*/
+	
 	public ResponseEntity<?> updateUcenik(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedNastavnik, BindingResult result) {
 		logger.info("Pokušaj izmene nastavnika sa id-jem {}", id);
 		Nastavnik nastavnik = nastavnikRepository.findById(id).get();

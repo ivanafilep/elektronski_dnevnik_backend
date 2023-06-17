@@ -1,21 +1,17 @@
 package com.ivana.tema8.controllers;
 
 import java.util.List;
-
-
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ivana.tema8.entities.Nastavnik;
 import com.ivana.tema8.entities.NastavnikPredmet;
 import com.ivana.tema8.entities.Ocena;
@@ -44,7 +40,7 @@ public class NastavnikPredmetController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		logger.info("Getting all nastavnikPredmet.");
@@ -52,7 +48,7 @@ public class NastavnikPredmetController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.PUT, path = "/nastavnik/{nastavnikId}/predmet/{predmetId}/{razred}")
 	public ResponseEntity<?> dodeliPredmetNastavniku(@PathVariable Integer nastavnikId, @PathVariable Integer predmetId,
 			@PathVariable Integer razred) {
@@ -60,7 +56,7 @@ public class NastavnikPredmetController {
 	}
 
 	
-	//@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
 	public ResponseEntity<?> obrisiNastavnikPredmet(@PathVariable Integer id) {
 		return nastavnikPredmetService.obrisiNastavnikPredmet(id);

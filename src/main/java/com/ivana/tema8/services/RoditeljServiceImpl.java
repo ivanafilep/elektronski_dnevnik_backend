@@ -1,8 +1,6 @@
 package com.ivana.tema8.services;
 
 import java.util.Optional;
-
-
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.ivana.tema8.dto.KorisnikDTO;
 import com.ivana.tema8.entities.Roditelj;
-//import com.ivana.tema8.entities.RoleEntity;
+import com.ivana.tema8.entities.RoleEntity;
 import com.ivana.tema8.entities.Ucenik;
 import com.ivana.tema8.repositories.RoditeljRepository;
-//import com.ivana.tema8.repositories.RoleRepository;
+import com.ivana.tema8.repositories.RoleRepository;
 import com.ivana.tema8.repositories.UcenikRepository;
 
 @Service
@@ -28,14 +26,14 @@ public class RoditeljServiceImpl implements RoditeljService {
 
 	@Autowired
 	private RoditeljRepository roditeljRepository;
-	//@Autowired
-	//private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	@Autowired
 	private UcenikRepository ucenikRepository;
 
 	private final Logger logger = LoggerFactory.getLogger(FileHandlerServiceImpl.class);
 
-/*
+
 	public ResponseEntity<?> addNewRoditelj(@Valid @RequestBody KorisnikDTO newUser, BindingResult result) {
 		Roditelj newRoditelj = new Roditelj();
 		RoleEntity roleEntity = roleRepository.findById(4).orElse(null);
@@ -65,7 +63,7 @@ public class RoditeljServiceImpl implements RoditeljService {
 		return new ResponseEntity<>(newRoditelj, HttpStatus.CREATED);
 	}
 
-	*/
+	
 	public ResponseEntity<?> updateRoditelj(@PathVariable Integer id, @Valid @RequestBody KorisnikDTO updatedRoditelj,
 			BindingResult result) {
 		logger.info("Pokušaj izmene roditelja sa id-jem {}", id);
